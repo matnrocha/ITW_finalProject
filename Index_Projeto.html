@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -13,50 +13,44 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="estilo_projeto.css" />
     <title>Paris 2024</title>
-    <style>
-        .navbar .olympics-symbol {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-            .navbar .olympics-symbol img {
-                height: 40px;
-            }
-    </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg fixed-top">
+    <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Paris 2024</a>
+            <a class="navbar-brand" href="Index_Projeto.html">Paris 2024</a>
 
-            <!-- Olympic Symbol -->
+            <!-- Olympic Symbol as a Link -->
             <div class="olympics-symbol">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Olympic_rings_without_rims.svg/512px-Olympic_rings_without_rims.svg.png" alt="Olympic Rings">
+                <a href="https://olympics.com/" target="_blank" rel="noopener noreferrer">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Olympic_rings_without_rims.svg/512px-Olympic_rings_without_rims.svg.png" alt="Olympic Rings" style="height: 30px;">
+                </a>
             </div>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Atletas</a>
+                        <a class="nav-link" href="athletes.html">Athletes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Treinadores</a>
+                        <a class="nav-link" href="Coaches.html">Coaches</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Equipas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Skibidi</a>
+                        <a class="nav-link" href="Teams.html">Teams</a>
                     </li>
                 </ul>
+                <!-- Search Bar -->
+                <form class="d-flex ms-3 position-relative" onsubmit="handleSearch(event)">
+                    <input class="form-control form-control-sm" type="text" id="mySearch" placeholder="Search.." title="Type in a category" aria-label="Search">
+                    <ul id="myMenu" class="list-group position-absolute w-100" style="top: 100%; z-index: 1050; display: none;"></ul>
+                </form>
             </div>
         </div>
     </nav>
+
 
     <!-- Carousel -->
     <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
@@ -69,7 +63,7 @@
             <!-- First Slide -->
             <div class="carousel-item active">
                 <div class="d-block w-100" alt="Paris Cityscape">
-                    <div style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('banner_1.jpeg') center center; height: 100%; background-size: cover; position: absolute; top: 0; left: 0; width: 100%; z-index: 1;">
+                    <div style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('Images/banner_1.jpeg') center center; height: 100%; background-size: cover; position: absolute; top: 0; left: 0; width: 100%; z-index: 1;">
 
                     </div>
                 </div>
@@ -77,7 +71,7 @@
             <!-- Second Slide -->
             <div class="carousel-item">
                 <div class="d-block w-100" alt="Slogan Slide">
-                    <div style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('banner_2.jpeg') center center; height: 100%; background-size: cover; position: absolute; top: 0; left: 0; width: 100%; z-index: 1;">
+                    <div style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('Images/banner2.png') center center; height: 100%; background-size: cover; position: absolute; top: 0; left: 0; width: 100%; z-index: 1;">
                         <h1 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; z-index: 2; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); font-size: calc(1.5rem + 1vw); text-align: center;">
                             "Ouvrons grand les yeux"
                         </h1>
@@ -87,7 +81,7 @@
             <!-- Third Slide -->
             <div class="carousel-item">
                 <div class="d-block w-100" alt="Games Description">
-                    <div style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('banner_3.jpeg') center center; height: 100%; background-size: cover; position: absolute; top: 0; left: 0; width: 100%; z-index: 1;">
+                    <div style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('Images/banner3.png') center center; height: 100%; background-size: cover; position: absolute; top: 0; left: 0; width: 100%; z-index: 1;">
                         <h1 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; z-index: 2; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); font-size: calc(1.5rem + 1vw); text-align: center;">
                             Jogos Olímpicos de Verão de 2024: <br>
                             De 26 de julho a 11 de agosto em Paris.
@@ -108,5 +102,6 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="Projeto_script.js"></script>
 </body>
 </html>
