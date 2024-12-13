@@ -1,4 +1,4 @@
-﻿body {
+body {
     margin: 0;
     padding: 0;
     height: 100%;
@@ -80,3 +80,30 @@
 .carousel-control-prev-icon, .carousel-control-next-icon {
     filter: brightness(0) invert(1);
 }
+
+/* Style the search box */
+#mySearch {
+    width: 100%;
+    font-size: 18px;
+    padding: 11px;
+    border: 1px solid #ddd;
+}
+
+/* Style the navigation menu */
+#myMenu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+    /* Style the navigation links */
+    #myMenu li a {
+        padding: 12px;
+        text-decoration: none;
+        color: black;
+        display: block
+    }
+
+        #myMenu li a:hover {
+            background-color: #eee;
+        }
