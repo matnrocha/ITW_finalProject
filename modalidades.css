@@ -1,0 +1,38 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+}
+.container {
+    margin-top: 40px;
+}
+.sport-list {
+    margin: 20px 0;
+}
+.sport-list-item {
+    cursor: pointer;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin: 5px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+.sport-list-item:hover {
+    background-color: #e9ecef;
+}
+.sport-info {
+    display: none;
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 20px;
+    position: relative;
+}
+#view-more-btn {
+    text-align: right;
+    float: right;
+}
+.selected-sport-info {
+    display: block;
+}

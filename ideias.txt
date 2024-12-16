@@ -1,0 +1,8 @@
+index (proximos jogos)
+mapa da tocha
+mapa dos estadios
+timeline dos eventos (desde cermómnia de abertura até cerimónia de fecho)
+modalidades (principais: atletismo, basquetebol, canoagem de velocidade, Ciclismo de pista, futebol, natação); trivia das modalidades (extra)
+medalheiro com gráficos
+comitês
+dark mode (extra)
