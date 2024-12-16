@@ -1,219 +1,272 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="estilo_projeto.css" />
     <title>Paris 2024</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="stylesheet.css" rel="stylesheet"/>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html"><img src="https://upload.wikimedia.org/wikipedia/commons/a/af/2024_Summer_Olympics_text_logo.png" height="30px" alt="Paris 2024 Logo"/></a>
+            <!-- Brand Logo -->
+            <a class="navbar-brand" href="Index_Projeto.html">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/2024_Summer_Olympics_text_logo.png"
+                     height="30px" alt="Paris 2024 Logo">
+            </a>
+
+            <!-- Navbar Toggler -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
+            <!-- Navbar Links -->
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Atletas e Equipas
+                            Athletes and Teams
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="atletas.html">Atletas</a></li>
-                            <li><a class="dropdown-item" href="treinadores.html">Treinadores</a></li>
-                            <li><a class="dropdown-item" href="juizes.html">Árbritros/Juízes</a></li>
-                            <li><a class="dropdown-item" href="competicoes.html">Competições</a></li>
-                            <li><a class="dropdown-item" href="comites.html">Comitês</a></li>
+                            <li><a class="dropdown-item" href="athletes.html">Athletes</a></li>
+                            <li><a class="dropdown-item" href="coaches.html">Coaches</a></li>
+                            <li><a class="dropdown-item" href="judges.html">Referees/Judges</a></li>
+                            <li><a class="dropdown-item" href="competitions.html">Competitions</a></li>
+                            <li><a class="dropdown-item" href="committees.html">Committees</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Modalidades
+                            Sports
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="modalidades.html">Todas as modalidades</a></li>
-                            <li><a class="dropdown-item" href="atletismo.html">Atletismo</a></li>
-                            <li><a class="dropdown-item" href="#">Basquetebol</a></li>
-                            <li><a class="dropdown-item" href="#">Canoagem de velocidade</a></li>
-                            <li><a class="dropdown-item" href="#">Ciclismo de pista</a></li>
-                            <li><a class="dropdown-item" href="#">Futebol</a></li>
-                            <li><a class="dropdown-item" href="#">Natação</a></li>
+                            <li><a class="dropdown-item" href="sports.html">All sports</a></li>
+                            <li><a class="dropdown-item" href="athletics.html">Track and Field</a></li>
+                            <li><a class="dropdown-item" href="#">Basketball</a></li>
+                            <li><a class="dropdown-item" href="#">Sprint Canoeing</a></li>
+                            <li><a class="dropdown-item" href="#">Track Cycling</a></li>
+                            <li><a class="dropdown-item" href="#">Football</a></li>
+                            <li><a class="dropdown-item" href="#">Swimming</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="medalheiro.html">Medalhas</a>
+                        <a class="nav-link" href="medals.html">Medals</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="tocha.html">Percurso da tocha</a>
+                        <a class="nav-link" href="torch-route.html">Torch Route</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="estadios.html">Estádios</a>
+                        <a class="nav-link" href="stadiums.html">Stadiums</a>
                     </li>
                 </ul>
+
+                <!-- Search Bar -->
+                <form class="d-flex ms-3 position-relative" onsubmit="handleSearch(event)">
+                    <input class="form-control form-control-sm" type="text" id="mySearch" placeholder="Search..."
+                           title="Type in a category" aria-label="Search">
+                    <ul id="myMenu" class="list-group position-absolute w-100" style="top: 100%; z-index: 1050; display: none;"></ul>
+                </form>
             </div>
         </div>
     </nav>
 
-    <div class="banners">
-        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img src="https://storage.googleapis.com/endurance-apps-liip/media/cache/olympics-games_channel_jumbotron_grid_fs/66a421beb1c61dc9290353b4" class="d-block w-100" alt="banner1">
-              </div>
-              <div class="carousel-item">
-                <img src="./Images/banner1.png" class="d-block w-100" alt="banner2">
-              </div>
-              <div class="carousel-item">
-                <img src="./Images/banner2.png" class="d-block w-100" alt="banner3">
-              </div>
-              <div class="carousel-item">
-                <img src="./Images/banner3.png" class="d-block w-100" alt="banner4">
-              </div>
-              <div class="carousel-item">
-                <img src="./Images/banner4.png" class="d-block w-100" alt="banner5">
-              </div>
+
+
+    <!-- Carousel -->
+    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <!-- First Slide -->
+            <div class="carousel-item active">
+                <div class="d-block w-100" alt="Paris Cityscape">
+                    <div style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('Images/banner_1.jpeg') center center; height: 100%; background-size: cover; position: absolute; top: 0; left: 0; width: 100%; z-index: 1;">
+
+                    </div>
+                </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
+            <!-- Second Slide -->
+            <div class="carousel-item">
+                <div class="d-block w-100" alt="Slogan Slide">
+                    <div style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('Images/banner2.jpg') center center; height: 100%; background-size: 40%; position: absolute; top: 0; left: 0; width: 100%; z-index: 1;">
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="d-block w-100" alt="Games Description">
+                    <div style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('Images/banner3.png') center center; height: 100%; background-size: cover; position: absolute; top: 0; left: 0; width: 100%; z-index: 1;">
+                        <!-- Text Content with Box -->
+                        <div style="position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); z-index: 2; text-align: center; width: 80%;">
+                            <div>
+                                <h1 style="
+                        color: white;
+                        font-size: calc(1.5rem + 1vw);
+                        font-family: 'Open Sans', sans-serif;
+                        font-weight: bold;
+                        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+                        line-height: 1.6;
+                        margin: 0;">
+                                    Paris 2024 featured the debut of breaking as an Olympic sport
+                                </h1>
+                            </div>
+                        </div>
+                        <!-- Button -->
+                        <div style="position: absolute; top: 55%; left: 50%; transform: translate(-50%, -50%); z-index: 2; text-align: center;">
+                            <a href="https://olympics.com/en/paris-2024/sports/breaking" target="_blank"
+                               class="btn btn-lg"
+                               style="background-color: #183d60; color: white; font-size: calc(1rem + 0.5vw); padding: 1rem 2.5rem;border:groove;border-radius: px;text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);">
+                                Discover More!
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
             </button>
-          </div>
-    </div>
+        </div>
 
-    <div class="container mb-3">
-        <h1 class="border-top border-bottom" style="font-weight: bold;">Jogos Olímpicos de Verão de 2024</h1>
-        <div class="row">
-            <div class="col-8">
-                <p>Jogos Olímpicos de Verão de 2024, oficialmente denominados Jogos da
-                XXXIII Olimpíada (em francês: Jeux de la XXXIIIe Olympiade) e comumente conhecidos como Paris 2024, foi um evento
-                multidesportivo internacional realizado de 26 de julho (data da cerimónia de abertura) a 11 de agosto de 2024 na França.</p>
-                <p>Paris foi a principal cidade anfitriã, com  16 outras cidades espalhadas pela França Metropolitana, além de uma subsede
-                no Taiti — uma ilha dentro do país ultramarino francês e da coletividade ultramarina da Polinésia Francesa.</p>
-                <p>A cidade de Paris foi escolhida como sede na 131.ª Sessão do Comitê Olímpico Internacional (COI) em Lima, Peru, em 13 de
-                setembro de 2017. Após múltiplas desistências que deixaram apenas Paris e Los Angeles na disputa, o COI aprovou um
-                processo para defini-las como locais de realização dos Jogos de 2024 e 2028 respectivamente. Tendo anteriormente sediado
-                os Jogos de 1900 e de 1924, Paris se tornará a segunda cidade, depois de Londres (que foi a anfitriã em 1908, 1948 e
-                2012), a sediar três vezes os Jogos Olímpicos de Verão. Paris 2024 também marca o centenário de Paris 1924, e estes
-                Jogos Olímpicos são os sextos organizados pela França (três de verão e três de inverno), e os primeiros Jogos Olímpicos
-                franceses desde os Jogos Olímpicos de Inverno de 1992 em Albertville. Em 2024 os Jogos Olímpicos de Verão retornam ao
-                tradicional ciclo olímpico de quatro anos, já que os Jogos de 2020, em Tóquio, foram adiados em um ano devido à pandemia
-                de COVID-19.
-                </p>
-                <p>
-                Os Jogos de 2024 contam com a estreia do breakdance como evento olímpico, e serão os últimos Jogos Olímpicos
-                realizados durante a gestão do COI pelo presidente Thomas Bach. Os Jogos tinham a expectativa de serem os primeiros a
-                contar com número idêntico de atletas entre homens e mulheres, mas após a lista final de inscritos os homens devem
-                contar com uma quantidade superior de competidores. As Olimpíadas de Paris custaram cerca de 9 bilhões de
-                euros.</p>
-                Source: <a href="https://pt.wikipedia.org/wiki/Jogos_Ol%C3%ADmpicos_de_Ver%C3%A3o_de_2024" title="ver mais">Wikipedia</a><br/>
-                Para aprender mais clique na imagem
-            </div>
-            <div class="col-4">
-                <a href="https://olympics.com/en/paris-2024" title="Olímpicos 2024 Paris"><img height="500px"
-                        src="https://upload.wikimedia.org/wikipedia/fr/thumb/6/68/Logo_JO_d%27%C3%A9t%C3%A9_-_Paris_2024.svg/640px-Logo_JO_d%27%C3%A9t%C3%A9_-_Paris_2024.svg.png" /></a>
-            </div>
-        </div>
-    </div>
+        <br />
 
-    <div class="container">
-        <h1>Jogos Paralímpicos de Verão de 2024</h1>
-        <div class="row">
-            <div class="container col-9">
-                <p>
-                Os XVII Jogos Paralímpicos de Verão, também chamados Jogos Paralímpicos de Paris 2024 ou mais comumente Paris 2024, foi um evento multiesportivo dirigido a atletas com deficiência, organizado
-                pelo Comitê Paralímpico Internacional (CPI) e com sede em Paris, na França. As eleições para as sedes dos Jogos
-                Paralímpicos de 2024 e 2028 ocorreram em 2017, em Lima, capital do Peru, América do Sul. A competição aconteceu entre
-                os dias 28 de agosto e 8 de setembro de 2024 e pela primeira vez na história do torneio, há a igualdade entre homens e
-                mulheres em todos os esportes (exceto o Futebol de 5 que segue sendo exclusivamente masculino e o Rugby em Cadeira de
-                Rodas que ainda é misto).
-                </p>
-                <p>
-                É a primeira vez em que Paris sedia os Jogos Paralímpicos, que agora contou com 22 desportos. A edição também ficou
-                marcada por ter tido a maior média de público, batendo os jogos de Londres 2012, chegando a 12,1 milhões de tickets
-                vendidos durante todo o evento, resultando em arenas e ginásios lotados, sendo apelidada de Revolução Paralímpica.
-                </p>Para aprender mais clique na imagem<p>
-            </div>
-            <div class="container col-3">
-                <a href="https://www.paralympic.org/paris-2024" title="Paralímpicos 2024 Paris"><img height="300px" src="https://upload.wikimedia.org/wikipedia/en/thumb/c/ce/2024_Summer_Paralympics_logo.svg/1200px-2024_Summer_Paralympics_logo.svg.png"/></a>
+        <div class="container mb-5">
+            <h1 class="text-center fw-bold border-top border-bottom py-3">Jogos Olímpicos de Verão de 2024</h1>
+            <div class="row mt-4">
+                <div class="col-lg-8">
+                    <div class="bg-light p-4 rounded shadow-sm">
+                        <p>
+                            Os Jogos Olímpicos de Verão de 2024, oficialmente denominados Jogos da XXXIII Olimpíada (em francês: Jeux de la XXXIIIe Olympiade) e comumente conhecidos como Paris 2024, foi um evento multidesportivo internacional realizado de 26 de julho a 11 de agosto de 2024 na França.
+                        </p>
+                        <p>
+                            Paris foi a principal cidade anfitriã, com 16 outras cidades espalhadas pela França Metropolitana, além de uma subsede no Taiti — uma ilha dentro do país ultramarino francês e da coletividade ultramarina da Polinésia Francesa.
+                        </p>
+                        <p>
+                            Tendo anteriormente sediado os Jogos de 1900 e de 1924, Paris se tornará a segunda cidade, depois de Londres, a sediar três vezes os Jogos Olímpicos de Verão. Esses Jogos também marcam o centenário de Paris 1924.
+                        </p>
+                        <p>
+                            <strong>Os Jogos de 2024 contam com a estreia do breakdance como evento olímpico</strong> e foram os últimos Jogos Olímpicos realizados durante a gestão do COI pelo presidente Thomas Bach. As Olimpíadas de Paris custaram cerca de <strong>9 bilhões de euros</strong>.
+                        </p>
+                        <a href="https://pt.wikipedia.org/wiki/Jogos_Ol%C3%ADmpicos_de_Ver%C3%A3o_de_2024" target="_blank" class="btn btn-primary mt-3">Saiba Mais</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <a href="https://olympics.com/en/paris-2024" title="Olímpicos 2024 Paris">
+                        <img class="img-fluid rounded shadow" height="500px" src="https://upload.wikimedia.org/wikipedia/fr/thumb/6/68/Logo_JO_d%27%C3%A9t%C3%A9_-_Paris_2024.svg/640px-Logo_JO_d%27%C3%A9t%C3%A9_-_Paris_2024.svg.png" alt="Paris 2024 Logo">
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="container text-center pb-3">
-        <h1 style="font-weight: bold;">SITES OLÍMPICOS</h1>
-        <div class="row" style="vertical-align: middle;">
-            <div class="container col-md-2">
-                <a href="https://olympics.com/ioc" title="IOC - International Olympic Committee"><img height="100px" 
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/IOC_Logo.svg/1170px-IOC_Logo.svg.png" /></a>
-            </div>
-            <div class="container col-md-2">
-                <a href="https://olympics.com/museum" title ="Olympic Museum"><img height="100px"
-                        src="https://upload.wikimedia.org/wikipedia/commons/f/f5/The_Olympic_Museum_Logo.svg" /></a>
-            </div>
-            <div class="container col-md-2">
-                <a href="https://olympics.com/athlete365" title="Athlete 365"><img height="100px"
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0TCNQEbiEo6dDRQJaISth4n9ZlxUfedHpAA&s" /></a>
-            </div>
-            <div class="container col-md-2">
-                <a href="https://olympics.com/en/olympic-refuge-foundation/" title="Olympic Refugee Foundation"><img height="100px"
-                        src="./Images/orf.png" /></a>
-            </div>
-            <div class="container col-md-2">
-                <a href="https://www.paralympic.org/" title="IPC - International Paralympic Committee"><img height="100px"
-                        src="https://upload.wikimedia.org/wikipedia/commons/3/35/IPC_logo_%282019%29.svg" /></a>
-            </div>
-        </div>
-    </div>
-    <div class="container text-center pb-3">
-        <h1 style="font-weight: bold;">PRÓXIMOS JOGOS</h1>
-        <div class="row" style="vertical-align: middle;">
-            <div class="container col-md-2">
-                <a href="https://milanocortina2026.olympics.com/en" title="Milano Cortina 2026"><img height="100px"
-                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/2026_Winter_Olympics_logo.svg/1200px-2026_Winter_Olympics_logo.svg.png" /></a>
-            </div>
-            <div class="container col-md-2">
-                <a href="https://olympics.com/en/olympic-games/los-angeles-2028" title="Los Angeles 2028"><img height="100px"
-                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/2028_Summer_Olympics_Logo.svg/640px-2028_Summer_Olympics_Logo.svg.png" /></a>
-            </div>
-            <div class="container col-md-2">
-                <a href="https://olympics.com/en/olympic-games/french-alps-2030" title="French Alps 2030"><img height="100px"
-                        src="https://img.olympics.com/images/image/private/t_s_w440/f_auto/primary/cfowgmawjricekyy8vtw" /></a>
-            </div>
-            <div class="container col-md-2">
-                <a href="https://olympics.com/en/brisbane-2032" title="Brisbane 2030"><img
-                        height="100px" src="https://img.olympics.com/images/image/private//f_auto/f_auto/primary/cjjefi9urd7plbxhslqi" /></a>
-            </div>
-            <div class="container col-md-2">
-                <a href="https://olympics.com/en/olympic-games/salt-lake-city-utah-2034" title="Salt Lake City 2034"><img height="100px"
-                        src="https://img.olympics.com/images/image/private/t_s_w440/f_auto/primary/ebbcl8o9i36pjwffgsu4" /></a>
+        <div class="container mb-5">
+            <h1 class="text-center fw-bold border-top border-bottom py-3">Jogos Paralímpicos de Verão de 2024</h1>
+            <div class="row mt-4">
+                <div class="col-lg-9">
+                    <div class="bg-light p-4 rounded shadow-sm">
+                        <p>
+                            Os XVII Jogos Paralímpicos de Verão, também chamados Jogos Paralímpicos de Paris 2024, foi um evento multiesportivo dirigido a atletas com deficiência, organizado pelo Comitê Paralímpico Internacional (CPI) e com sede em Paris, na França.
+                        </p>
+                        <p>
+                            A competição aconteceu entre os dias 28 de agosto e 8 de setembro de 2024 e marcou a <strong>primeira igualdade entre homens e mulheres em todos os esportes</strong>, exceto em algumas modalidades.
+                        </p>
+                        <p>
+                            É a primeira vez em que Paris sedia os Jogos Paralímpicos. A edição ficou marcada por ter a maior média de público, com <strong>12,1 milhões de tickets vendidos</strong>, sendo apelidada de Revolução Paralímpica.
+                        </p>
+                        <a href="https://www.paralympic.org/paris-2024" target="_blank" class="btn btn-success mt-3">Saiba Mais</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 text-center">
+                    <a href="https://www.paralympic.org/paris-2024" title="Paralímpicos 2024 Paris">
+                        <img class="img-fluid rounded shadow" height="300px" src="https://upload.wikimedia.org/wikipedia/en/thumb/c/ce/2024_Summer_Paralympics_logo.svg/1200px-2024_Summer_Paralympics_logo.svg.png" alt="Paralympics Logo">
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-    <nav class="navbar bg-body-tertiary sticky-bottom">
-        <div class="container-fluid">
-           <div class="navbar-text">
-                © Introdução as Tecnologias Web - 2024/25
-           </div>
-        <div class="navbar-text">
-            Criado por Miguel Neto e Lisle Faria
-        </div>
-        <div class="navbar-text">
-            Universidade de Aveiro
-        </div>
-        </div>
-    </nav>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+        <div class="container text-center pb-3">
+            <h1 style="font-weight: bold;">Find Out</h1>
+            <div class="row">
+                <div class="container col-md-2">
+                    <a href="https://olympics.com/ioc" title="IOC - International Olympic Committee">
+                        <img height="100px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/IOC_Logo.svg/1170px-IOC_Logo.svg.png" />
+                    </a>
+                </div>
+                <div class="container col-md-2">
+                    <a href="https://olympics.com/museum" title="Olympic Museum">
+                        <img height="100px" src="https://upload.wikimedia.org/wikipedia/commons/f/f5/The_Olympic_Museum_Logo.svg" />
+                    </a>
+                </div>
+                <div class="container col-md-2">
+                    <a href="https://olympics.com/athlete365" title="Athlete 365">
+                        <img height="100px" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0TCNQEbiEo6dDRQJaISth4n9ZlxUfedHpAA&s" />
+                    </a>
+                </div>
+                <div class="container col-md-2">
+                    <a href="https://olympics.com/en/olympic-refuge-foundation/" title="Olympic Refugee Foundation">
+                        <img height="100px" src="https://img.olympics.com/images/image/private/t_original_991-auto/f_auto/primary/zklgwfvhfwwthzsa1ljk" />
+                    </a>
+                </div>
+                <div class="container col-md-2">
+                    <a href="https://www.paralympic.org/" title="IPC - International Paralympic Committee">
+                        <img height="100px" src="https://upload.wikimedia.org/wikipedia/commons/3/35/IPC_logo_%282019%29.svg" />
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container text-center pb-3">
+            <h1 style="font-weight: bold;">Next Games</h1>
+            <div class="row">
+                <div class="container col-md-2">
+                    <a href="https://milanocortina2026.olympics.com/en" title="Milano Cortina 2026">
+                        <img height="100px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/2026_Winter_Olympics_logo.svg/1200px-2026_Winter_Olympics_logo.svg.png" />
+                    </a>
+                </div>
+                <div class="container col-md-2">
+                    <a href="https://olympics.com/en/olympic-games/los-angeles-2028" title="Los Angeles 2028">
+                        <img height="100px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/2028_Summer_Olympics_Logo.svg/640px-2028_Summer_Olympics_Logo.svg.png" />
+                    </a>
+                </div>
+                <div class="container col-md-2">
+                    <a href="https://olympics.com/en/olympic-games/french-alps-2030" title="French Alps 2030">
+                        <img height="100px" src="https://img.olympics.com/images/image/private/t_s_w440/f_auto/primary/cfowgmawjricekyy8vtw" />
+                    </a>
+                </div>
+                <div class="container col-md-2">
+                    <a href="https://olympics.com/en/brisbane-2032" title="Brisbane 2030">
+                        <img height="100px" src="https://img.olympics.com/images/image/private//f_auto/f_auto/primary/cjjefi9urd7plbxhslqi" />
+                    </a>
+                </div>
+                <div class="container col-md-2">
+                    <a href="https://olympics.com/en/olympic-games/salt-lake-city-utah-2034" title="Salt Lake City 2034">
+                        <img height="100px" src="https://img.olympics.com/images/image/private/t_s_w440/f_auto/primary/ebbcl8o9i36pjwffgsu4" />
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="Projeto_script.js"></script>
 </body>
 </html>
