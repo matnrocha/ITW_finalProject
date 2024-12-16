@@ -9,20 +9,33 @@ body {
 /* Navbar */
 .navbar {
     background-color: #f4f4f4;
-    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Ensures left and right alignment */
+    padding: 0.5rem 1rem;
 }
 
-.navbar-brand {
-    color: #003580;
-    font-weight: bold;
-}
-
-    .navbar-brand:hover {
-        color: #d4b720;
+    /* Brand alignment on the left */
+    .navbar .navbar-brand {
+        margin-right: auto; /* Push other elements to the right */
     }
 
+    /* Navigation items alignment on the right */
+    .navbar .navbar-nav {
+        display: flex;
+        align-items: center;
+        margin-right: auto; /* Align navigation items to the right */
+    }
+
+/* Individual navigation item spacing */
+.nav-item {
+    margin-left: 1rem;
+}
+
+/* Links styling */
 .nav-link {
     color: #003580;
+    text-decoration: none;
     transition: color 0.3s ease;
 }
 
@@ -30,6 +43,7 @@ body {
         color: #480a07;
     }
 
+/* Toggler icon */
 .navbar-toggler-icon {
     background-image: url("data:image/svg+xml;utf8,<svg fill='none' viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'> <path stroke='%23A50000' stroke-width='3' stroke-linecap='round' d='M4 7h22'/> <path stroke='%23D4AF37' stroke-width='3' stroke-linecap='round' d='M4 15h22'/> <path stroke='%2300008B' stroke-width='3' stroke-linecap='round' d='M4 23h22'/> </svg>");
     background-repeat: no-repeat;
@@ -37,19 +51,6 @@ body {
     background-size: contain;
 }
 
-.navbar .olympics-symbol {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .navbar .olympics-symbol img {
-        height: 40px; 
-        width: auto;; 
-    }
 /* Carousel */
 .carousel-inner {
     width: 100vw;
