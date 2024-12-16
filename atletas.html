@@ -1,171 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="stylesheet.css" rel="stylesheet"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="estilo_projeto.css" />
+    <title>Athletes</title>
     <style>
-        button{
-          display: inline-block;
-          margin-top: 1rem;
-          padding: 0.7rem 1rem;
-          background-color: #4a90e2;
-          background: linear-gradient(
-            180deg,
-            rgb(45, 31, 126) 0%,
-            rgb(170, 109, 82) 100%
-          );
-          color: white;
-          text-decoration: none;
-          border-radius: 4px;
-          text-align: center;
+        .navbar {
+            background-color: #0c2e5f;
+            position: relative;
+        }
+
+        .navbar-brand {
+            color: #f4f4f4;
+            font-weight: bold;
+        }
+
+            .navbar-brand:hover {
+                color: #d4b720;
+            }
+
+        .nav-link {
+            color: #f4f4f4;
+            transition: color 0.3s ease;
+        }
+
+            .nav-link:hover {
+                color: #d4b720;
+            }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml;utf8,<svg fill='none' viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'> <path stroke='%23A50000' stroke-width='3' stroke-linecap='round' d='M4 7h22'/> <path stroke='%23D4AF37' stroke-width='3' stroke-linecap='round' d='M4 15h22'/> <path stroke='%2300008B' stroke-width='3' stroke-linecap='round' d='M4 23h22'/> </svg>");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html"><img src="https://upload.wikimedia.org/wikipedia/commons/a/af/2024_Summer_Olympics_text_logo.png" height="30px" alt="Paris 2024 Logo"/></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="Index_Projeto.html">Paris 2024</a>
+
+            <!-- Olympic Symbol as a Link -->
+            <div class="olympics-symbol">
+                <a href="https://olympics.com/" target="_blank" rel="noopener noreferrer">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Olympic_rings_without_rims.svg/512px-Olympic_rings_without_rims.svg.png" alt="Olympic Rings">
+                </a>
+            </div>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Atletas e Equipas
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="atletas.html">Atletas</a></li>
-                            <li><a class="dropdown-item" href="treinadores.html">Treinadores</a></li>
-                            <li><a class="dropdown-item" href="juizes.html">Árbritros/Juízes</a></li>
-                            <li><a class="dropdown-item" href="competicoes.html">Competições</a></li>
-                            <li><a class="dropdown-item" href="comites.html">Comitês</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Modalidades
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="modalidades.html">Todas as modalidades</a></li>
-                            <li><a class="dropdown-item" href="#">Atletismo</a></li>
-                            <li><a class="dropdown-item" href="#">Basquetebol</a></li>
-                            <li><a class="dropdown-item" href="#">Canoagem de velocidade</a></li>
-                            <li><a class="dropdown-item" href="#">Ciclismo de pista</a></li>
-                            <li><a class="dropdown-item" href="#">Futebol</a></li>
-                            <li><a class="dropdown-item" href="#">Natação</a></li>
-                        </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="athletes.html">Athletes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="medalheiro.html">Medalhas</a>
+                        <a class="nav-link" href="Coaches.html">Coaches</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="tocha.html">Percurso da tocha</a>
+                        <a class="nav-link" href="Teams.html">Teams</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="estadios.html">Estádios</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="timeline.html">Linha do tempo</a>
+                        <a class="nav-link" href="#">...</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-
-      
-    <!-- Paginação -->
-    <div class="container my-4">
-        <div class="row mb-3 align-items-center">
-            <div class="col-md-6">
-                <button id="toggleViewBtn" class="btn btn-primary">Switch to Table</button>
-            </div>
-            <div class="col-md-6 text-end">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-end" id="pagination"></ul>
-                </nav>
+    <p></p>
+    <!-- Working Area -->
+    <div class="container">
+        <div class="border-bottom py-2 mb-2">
+            <h2 data-bind="text:displayName"></h2>
+        </div>
+        <!-- ko if:athletes().length > 0 -->
+        <div class="row small">
+            <p class=" col-4 mr-auto pt-2">
+                <span data-bind="html: 'Page: ' + currentPage() + ' of ' + totalPages()"></span><br />
+                <span data-bind="html: 'Athletes: '+ fromRecord() + '-' + toRecord() + ' of ' + totalRecords()"></span>
+            </p>
+            <div class="col-8 my-0 pt-3">
+                <ul class="pagination float-end">
+                    <!-- ko if: currentPage() > 5 && totalPages() > 10 -->
+                    <li class="page-item float-end"><a class="page-link" title="First Page" data-bind="attr: { href: './athletes.html?page=' + '1',  rel:'prev'}">⇤</a></li>
+                    <li class="page-item float-end"><a class="page-link" title="Previous Page" data-bind="attr: { href: './athletes.html?page=' + previousPage(),  rel:'prev'}">←</a></li>
+                    <!-- /ko -->
+                    <!-- ko foreach: pageArray()-->
+                    <!-- ko if:$data == $parent.currentPage() -->
+                    <li class="active page-item"><a class="page-link" data-bind="attr: { title:'Current Page ' + $data }, text: $data"></a></li>
+                    <!-- /ko -->
+                    <!-- ko if:$data != $parent.currentPage() -->
+                    <li class="page-item"><a class="page-link" data-bind="attr: { href: './athletes.html?page=' + $data + '&pagesize=' + $parent.pagesize(), title:'Goto Page ' + $data }, text:$data"></a></li>
+                    <!-- /ko -->
+                    <!-- /ko -->
+                    <!-- ko if: currentPage() < totalPages() - 4 && totalPages() > 9 -->
+                    <li class="page-item"><a class="page-link" title="Next Page" data-bind="attr: { href: './athletes.html?page=' + nextPage(), rel:'next' }">→</a></li>
+                    <li class="page-item"><a class="page-link" title="Last Page" data-bind="attr: { href: './athletes.html?page=' + totalPages() }">⇥</a></li>
+                    <!-- /ko -->
+                </ul>
             </div>
         </div>
-    </div>
-        <!-- Atletas -->
-    <div class="row row-cols-1 row-cols-md-4 g-5" id="athlete-container"></div> 
+        <!-- /ko -->
 
-    <div id="athlete-table" style="display: none;">
-        <table class="table table-striped">
-            <thead>
+        <table class="table table-striped table-sm small">
+            <thead class="table-secondary">
                 <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Sex</th>
-                    <th>Country</th>
-                    <th>Birth Date</th>
+                    <th scope="col">Id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Birth Date</th>
+                    <th scope="col">Birth Place</th>
+                    <th scope="col">Sex</th>
+                    <th scope="col" class="text-right"></th>
                 </tr>
             </thead>
-            <tbody id="table-body"></tbody>
+            <tbody data-bind="foreach: athletes">
+                <tr>
+                    <td class="align-middle" data-bind="text:Id"></td>
+                    <td class="align-middle" data-bind="text:Name"></td>
+                    <td class="align-middle" data-bind="text:BirthDate"></td>
+                    <td class="align-middle" data-bind="text:BirthPlace"></td>
+                    <td class="align-middle" data-bind="text:Sex"></td>
+                    <td class="text-end">
+                        <a class="btn btn-default btn-light btn-xs" data-bind="attr: { href:'./athleteDetails.html?id=' + Id }"><i class="fa fa-eye" title="Show details"></i></a>
+                        <button class="btn btn-default btn-xs"><i class="fa fa-heart-o" data-bind="attr : { 'id': 'favourite_' + Id }" title="Add to favorites"></i></button>
+                    </td>
+                </tr>
+            </tbody>
         </table>
     </div>
-    
-    <div class="modal fade" id="athleteModal" tabindex="-1" aria-labelledby="athleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="athleteModalLabel" data-bind="text: AthleteName"></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <img data-bind="attr: { src: AthletePhoto, alt: AthleteName }" class="img-fluid mb-3">
-                <p><strong>Birth Country:</strong> <span data-bind="text: BirthCountry"></span></p>
-                <p><strong>Birth Date:</strong> <span data-bind="text: BirthDate"></span></p>
-                <p><strong>Birth Place:</strong> <span data-bind="text: BirthPlace"></span></p>
-                <p><strong>Sex:</strong> <span data-bind="text: Sex"></span></p>
-                <p><strong>Height:</strong> <span data-bind="text: Height"></span></p>
-                <p><strong>Weight:</strong> <span data-bind="text: Weight"></span></p>
-                <p><strong>Language:</strong> <span data-bind="text: Language"></span></p>
-                <p><strong>Occupation:</strong> <span data-bind="text: Occupation"></span></p>
-                <p><strong>Education:</strong> <span data-bind="text: Education"></span></p>
-                <p><strong>Nickname:</strong> <span data-bind="text: Nickname"></span></p>
-                <p><strong>Hobbies:</strong> <span data-bind="text: Hobbies"></span></p>
-                <p><strong>Country Code:</strong> <span data-bind="text: CountryCode"></span></p>
-                <p><strong>Residence Place:</strong> <span data-bind="text: ResidencePlace"></span></p>
-                <p><strong>Residence Country:</strong> <span data-bind="text: ResidenceCountry"></span></p>
-                <p><strong>Hero:</strong> <span data-bind="text: Hero"></span></p>
-                <p><strong>Influence:</strong> <span data-bind="text: Influence"></span></p>
-                <p><strong>Philosophy:</strong> <span data-bind="text: Philosophy"></span></p>
-                <p><strong>Sporting Relatives:</strong> <span data-bind="text: SportingRelatives"></span></p>
-                <p><strong>Ritual:</strong> <span data-bind="text: Ritual"></span></p>
-                <p><strong>Other Sports:</strong> <span data-bind="text: OtherSports"></span></p>
-                <p><strong>Country:</strong> <span data-bind="text: Country"></span></p>
-                <h5>Medals:</h5>
-                <ul data-bind="foreach: Medals">
-                    <li data-bind="text: $data"></li>
-                </ul>
-                <h5>Sports:</h5>
-                <ul data-bind="foreach: Sports">
-                    <li data-bind="text: $data"></li>
-                </ul>
-                <h5>Competitions:</h5>
-                <ul data-bind="foreach: Competitions">
-                    <li data-bind="text: $data"></li>
-                </ul>
-            </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        <img src="../images/Paris2024.png" height="30" /> Loading data...
+                    </h5>
+                </div>
+                <div class="modal-body text-center">
+                    <i class="fa fa-spin fa-3x fa-refresh"></i>
                 </div>
             </div>
         </div>
-    </div> 
+    </div>
 
-    
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.js" integrity="sha512-2AL/VEauKkZqQU9BHgnv48OhXcJPx9vdzxN1JrKDVc4FPU/MEE/BZ6d9l0mP7VmvLsjtYwqiYQpDskK9dG8KBA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="atletas.js"></script>
 </body>
 </html>
