@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paris 2024 Medal Tracker</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="estilo_projeto.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+</head>
+<style>
+    /* General style for buttons */
+    .btn-section {
+        padding: 15px 30px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease-in-out;
+        border: none;
+    }
+
+        .btn-section:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Total button */
+        .btn-section.active {
+            background-color: #007bff;
+            color: white;
+        }
+
+            .btn-section.active:hover {
+                background-color: #0056b3;
+            }
+
+    /* Gold button */
+    .btn-gold {
+        background-color: gold;
+        color: #212529;
+    }
+
+        .btn-gold:hover {
+            background-color: #f0c14b;
+            color: #000;
+        }
+
+    /* Silver button */
+    .btn-silver {
+        background-color: silver;
+        color: #212529;
+    }
+
+        .btn-silver:hover {
+            background-color: #c0c0c0;
+        }
+
+    /* Bronze button */
+    .btn-bronze {
+        background-color: #cd7f32;
+        color: white;
+    }
+
+        .btn-bronze:hover {
+            background-color: #a46a23;
+        }
+
+</style>
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+        <div class="container-fluid">
+            <!-- Brand Logo -->
+            <a class="navbar-brand" href="Index_Projeto.html">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/2024_Summer_Olympics_text_logo.png"
+                     height="30px" alt="Paris 2024 Logo">
+            </a>
+
+            <!-- Navbar Toggler -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navbar Links -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Athletes and Teams
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="atletas.html">Athletes</a></li>
+                            <li><a class="dropdown-item" href="treinadores.html">Coaches</a></li>
+                            <li><a class="dropdown-item" href="juizes.html">Referees/Judges</a></li>
+                            <li><a class="dropdown-item" href="competicoes.html">Competitions</a></li>
+                            <li><a class="dropdown-item" href="comites.html">Committees</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Sports
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="modalidades.html">All sports</a></li>
+                            <li><a class="dropdown-item" href="atletismo.html">Track and Field</a></li>
+                            <li><a class="dropdown-item" href="basquetebol.html">Basketball</a></li>
+                            <li><a class="dropdown-item" href="canoagem.html">Sprint Canoeing</a></li>
+                            <li><a class="dropdown-item" href="ciclismo.html">Track Cycling</a></li>
+                            <li><a class="dropdown-item" href="futebol_html">Football</a></li>
+                            <li><a class="dropdown-item" href="natacao.html">Swimming</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="medalheiro.html">Medals</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="tocha.html">Torch Route</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="estadios.html">Stadiums</a>
+                    </li>
+                </ul>
+
+                <!-- Search Bar -->
+                <form class="d-flex ms-3 position-relative" onsubmit="handleSearch(event)">
+                    <input class="form-control form-control-sm" type="text" id="mySearch" placeholder="Search..."
+                           title="Type in a category" aria-label="Search">
+                    <ul id="myMenu" class="list-group position-absolute w-100" style="top: 100%; z-index: 1050; display: none;"></ul>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <div class="container text-center">
+        <div class="btn-group-toggle d-flex justify-content-center gap-3" data-toggle="buttons">
+            <button class="btn btn-lg btn-section active" id="total">Total</button>
+            <button class="btn btn-lg btn-section btn-gold" id="ouro">Gold</button>
+            <button class="btn btn-lg btn-section btn-silver" id="prata">Silver</button>
+            <button class="btn btn-lg btn-section btn-bronze" id="bronze">Bronze</button>
+        </div>
+    </div>
+
+
+    <main class="container-lg mt-4">
+        <table class="table table-striped">
+            <thead class="table-secondary">
+                <tr>
+                    <th scope="col-2">Country Code</th>
+                    <th scope="col-2">Country</th>
+                    <th scope="col-2">Gold <i class="fa fa-circle" style="color:gold"></i></th>
+                    <th scope="col-2">Silver <i class="fa fa-circle" style="color:silver"></i></th>
+                    <th scope="col-2">Bronze <i class="fa fa-circle" style="color:brown"></i></th>
+                    <th scope="col-2">Total</th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: records">
+                <tr>
+                    <td class="align-middle" data-bind="text: CountryCode"></td>
+                    <td class="align-middle" data-bind="text: CountryName"></td>
+                    <td class="align-middle" data-bind="text: GoldMedal"></td>
+                    <td class="align-middle" data-bind="text: SilverMedal"></td>
+                    <td class="align-middle" data-bind="text: BronzeMedal"></td>
+                    <td class="align-middle" data-bind="text: Total"></td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.min.js"></script>
+    <script src="medalheiro.js"></script>
+    <script src="Projeto_script.js"></script>
+</body>
+</html>
