@@ -2,11 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Committees</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="estilo_projeto.css" rel="stylesheet"/>
+    <title>Committees</title>
 </head>
 <body>
     <!-- Navbar -->
@@ -87,32 +89,35 @@
             </div>
         </div>
     </div>
-    <!-- Juízes -->
-   <div class="row row-cols-1 row-cols-md-4 g-5" id="NOC-container"></div> 
 
-   <div id="NOCs-table" style="display: none;">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>ID</th>
-                    <th>Country</th>
-                    <th>Athletes</th>
-                    <th>Coaches</th>
-                    <th>Medals</th>
-                    <th>Teams</th>
-                </tr>
-            </thead>
-            <tbody id="table-body"></tbody>
-        </table>
+
+
+    <!-- Committees -->
+    <div class="row row-cols-1 row-cols-md-3 g-4" id="committee-container"></div> <!-- Alterei de 4 para 3 colunas -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="committeeModal" tabindex="-1" aria-labelledby="committeeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="committeeModalLabel" data-bind="text: CommitteeName"></h5>
+                    <button type="button"    class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Committee Name:</strong> <span data-bind="text: CommitteeName"></span></p>
+                    <p><strong>Description:</strong> <span data-bind="text: Description"></span></p>
+                    <p><strong>Chairperson:</strong> <span data-bind="text: Chairperson"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
 
-
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
     <script src="comites.js"></script>
 </body>
 </html>
