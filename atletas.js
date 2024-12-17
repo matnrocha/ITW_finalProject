@@ -237,13 +237,13 @@ $(document).ready(function () {
         if (isTableView) {
             $cards.show();
             $table.hide();
-            $button.text('Switch to Table');
+            $button.text('Switch view');
             populateCards(athletesList);
         } else {
             $cards.hide();
             $table.show();
-            $button.text('Switch to Cards');
-            populateTable(athletesList); // Populate table literalmente
+            $button.text('Switch view');
+            populateTable(athletesList); 
         }
         isTableView = !isTableView;
     });
