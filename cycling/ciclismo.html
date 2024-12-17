@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eventos de Ciclismo</title>
+    <title>Ciclism Events</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="../estilo_projeto.css">
@@ -55,7 +55,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="medallheiro.html">Medals</a>
+                        <a class="nav-link" href="../medals/medalheiro.html">Medals</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../torch/tocha.html">Torch Route</a>
@@ -76,18 +76,18 @@
     </nav>
 
     <div class="text-center">
-        <h1>Informações sobre os eventos de Ciclismo</h1>
+        <h1>Cyclism Events info</h1>
     </div>
 
     <div class="row pt-3 pb-3 align-items-end">
         <div class="col-3">
             <select class="form-select" aria-label="Eventos de ciclismo" id="selectEvento" data-bind="foreach: eventos">
-                <option value="" selected>---Selecionar um evento---</option>
+                <option value="" selected>---Select a event---</option>
             </select>
         </div>
         <div class="col-3">
             <select class="form-select" aria-label="Fases do evento" id="selectFase">
-                <option value="" selected>---Selecionar uma fase---</option>
+                <option value="" selected>---Select a period---</option>
             </select>
         </div>
     </div>
@@ -97,11 +97,11 @@
             <thead class="table-secondary">
                 <tr>
                     <th scope="col">Id</th>
-                    <th scope="col">Tipo</th>
-                    <th scope="col">Sexo</th>
-                    <th scope="col">Nome do participante/equipa</th>
-                    <th scope="col">País do participante/equipa</th>
-                    <th scope="col">Código participante/equipa</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Sex</th>
+                    <th scope="col">Team name</th>
+                    <th scope="col">Team country</th>
+                    <th scope="col">Team code</th>
                 </tr>
             </thead>
             <tbody id="table-body">

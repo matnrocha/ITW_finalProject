@@ -24,17 +24,18 @@ $(document).ready(function () {
     const pageSize = 16;
 
     function populateCards(coaches){
-        // Limpar e preencher os cards
         $container.empty();
         coaches.forEach(coach => {
+            const photoUrl = coach.Photo ? coach.Photo : '../images/placeholder.jpg';
             const card = `
                 <div class="col">
                     <div class="card coach-card" data-id="${coach.Id}" style="cursor:pointer;">
-                        <img src="${coach.Photo || 'placeholder.jpg'}" class="card-img-top" alt="${coach.Name}">
+                        <img src="${photoUrl}" class="card-img-top" alt="${coach.Name}" 
+                             onerror="this.src='../images/placeholder.jpg';">
                         <div class="card-body">
-                            <h5 class="card-title">${coach.Name}</h5>
+                            <h5 class="card-title">${coach.Name || 'N/A'}</h5>
                             <p class="card-text">
-                                <strong>Fuction:</strong> ${coach.Function || 'N/A'}
+                                <strong>Function:</strong> ${coach.Function || 'N/A'}
                             </p>
                         </div>
                     </div>
@@ -43,6 +44,7 @@ $(document).ready(function () {
             $container.append(card);
         });
     }
+    
 
     function populateTable(coaches){
         const $tableBody = $('#table-body');
@@ -170,7 +172,7 @@ $(document).ready(function () {
             success: function (coach) {
                 console.log(viewModel)
 
-                viewModel.coachPhoto(coach.Photo || 'placeholder.jpg');
+                viewModel.coachPhoto(coach.Photo || '../images/placeholder.jpg');
                 viewModel.coachName(coach.Name || 'N/A');
                 viewModel.Sex(coach.Sex || 'N/A');
                 viewModel.BirthDate(coach.BirthDate || 'N/A');

@@ -22,7 +22,7 @@ $.ajax({
             //console.log([parseFloat(data[i].Lat), parseFloat(data[i].Lon)]);
             if (data[i].NumSports > 0) {
                 console.log("added")
-                var popupInfo = `ID:${data[i].Id}</br>Nome:${data[i].Name}</br>Número de desportos:${data[i].NumSports}`;
+                var popupInfo = `ID:${data[i].Id}</br>Name:${data[i].Name}</br>Sports Number:${data[i].NumSports}`;
                 markers.push([parseFloat(data[i].Lat), parseFloat(data[i].Lon)]);
                 venues.push(data[i].Name);
                 popUps.push(popupInfo);

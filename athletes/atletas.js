@@ -64,7 +64,7 @@ $(document).ready(function () {
             const card = `
                 <div class="col">
                     <div class="card athlete-card" data-id="${athlete.Id}" style="cursor:pointer;">
-                        <img src="${athlete.Photo || 'placeholder.jpg'}" class="card-img-top" alt="${athlete.Name}">
+                        <img src="${athlete.Photo || '../images/placeholder.jpg'}" class="card-img-top" alt="${athlete.Name}">
                         <div class="card-body">
                             <h5 class="card-title">${athlete.Name}</h5>
                             <p class="card-text">
@@ -188,7 +188,7 @@ $(document).ready(function () {
                 console.log('Dados do atleta:', athlete);
 
                 //viewModel com os dados do atleta
-                viewModel.AthletePhoto(athlete.Photo || 'placeholder.jpg');
+                viewModel.AthletePhoto(athlete.Photo || '../images/placeholder.jpg');
                 viewModel.AthleteName(athlete.Name || 'N/A');
                 viewModel.BirthCountry(athlete.BirthCountry || 'N/A');
                 viewModel.BirthDate(athlete.BirthDate ? new Date(athlete.BirthDate).toLocaleDateString() : 'N/A');

@@ -166,7 +166,7 @@ $(document).ready(function () {
             success: function (tech) {
                 console.log(viewModel)
                 console.log('Image URL:', tech.Photo);
-                viewModel.techPhoto(tech.Photo || 'placeholder.jpg');
+                viewModel.techPhoto(tech.Photo || '../images/placeholder.jpg');
                 viewModel.techName(tech.Name || 'N/A');
                 viewModel.Sex(tech.Sex || 'N/A');
                 viewModel.BirthDate(tech.BirthDate || 'N/A');

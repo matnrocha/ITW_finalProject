@@ -22,7 +22,7 @@ $(document).ready(function () {
             const card = `
                 <div class="col">
                     <div class="card committee-card" data-id="${committee.Id}" style="cursor:pointer;">
-                        <img src="${committee.Photo || 'placeholder.jpg'}" class="card-img-top" alt="${committee.Name}">
+                        <img src="${committee.Photo || '../images/placeholder.jpg'}" class="card-img-top" alt="${committee.Name}">
                         <div class="card-body">
                             <h5 class="card-title">${committee.Name || 'N/A'}</h5>
                             <p class="card-text">
