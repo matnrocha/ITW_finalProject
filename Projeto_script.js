@@ -2,20 +2,20 @@
         const menu = document.getElementById('myMenu');
 
         const items = [
-            { name: "Athletes", link:"athletes.html" },
-            { name: "Coaches", link: "" },
-            { name: "Competitions", link: "" },
-            { name: "Committees", link: "" },
-            { name: "All sports", link: "" },
-            { name: "Track and Field", link: "" },
-            { name: "Basketball", link: "" },
-            { name: "Sprint Canoeing", link: "" },
-            { name: "Track Cycling", link: "" },
-            { name: "Football", link: "" },
-            { name: "Swimming", link: "" },
-            { name: "Medals", link: "" },
-            { name: "Torch route", link: "" },
-            { name: "Stadiums", link: "" },
+            { name: "Athletes", link:"../athletes/atletas.html" },
+            { name: "Coaches", link: "../coaches/treinadores.html" },
+            { name: "Competitions", link: "../competitions/competicoes.html" },
+            { name: "Committees", link: "../committees/comites.html" },
+            { name: "All sports", link: "../all_sports/modalidades.html" },
+            { name: "Track and Field", link: "../atletism/atletismo.html" },
+            { name: "Basketball", link: "../basketball/basquetebol.html" },
+            { name: "Sprint Canoeing", link: "../canoeing/canoagem.html" },
+            { name: "Track Cycling", link: "../cycling/ciclismo.html" },
+            { name: "Football", link: "../football/futebol.html" },
+            { name: "Swimming", link: "../swimming/natacao.html" },
+            { name: "Medals", link: "../medals/medalheiro.html" },
+            { name: "Torch route", link: "../torch/tocha.html" },
+            { name: "Stadiums", link: "../stadiums/estadios.html" },
         ];
     
 
@@ -46,6 +46,7 @@ searchInput.addEventListener('keyup', () => {
 function handleSearch(event) {
     event.preventDefault();
     const filter = searchInput.value.toLowerCase();
+    filter = "../" + filter;
     const match = items.find(item => item.name.toLowerCase() === filter);
     if (match) {
         window.location.href = match.link;
