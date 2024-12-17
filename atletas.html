@@ -3,169 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>Athletes</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="stylesheet.css" rel="stylesheet"/>
+    <link href="estilo_projeto.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <style>
-        button{
-          display: inline-block;
-          margin-top: 1rem;
-          padding: 0.7rem 1rem;
-          background-color: #4a90e2;
-          background: linear-gradient(
-            180deg,
-            rgb(45, 31, 126) 0%,
-            rgb(170, 109, 82) 100%
-          );
-          color: white;
-          text-decoration: none;
-          border-radius: 4px;
-          text-align: center;
+        .ui-autocomplete {
+            background-color: inherit;
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html"><img src="https://upload.wikimedia.org/wikipedia/commons/a/af/2024_Summer_Olympics_text_logo.png" height="30px" alt="Paris 2024 Logo"/></a>
+            <!-- Brand Logo -->
+            <a class="navbar-brand" href="index.html">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/2024_Summer_Olympics_text_logo.png"
+                     height="30px" alt="Paris 2024 Logo">
+            </a>
+
+            <!-- Navbar Toggler -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
+            <!-- Navbar Links -->
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Atletas e Equipas
+                            Athletes and Teams
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="atletas.html">Atletas</a></li>
-                            <li><a class="dropdown-item" href="treinadores.html">Treinadores</a></li>
-                            <li><a class="dropdown-item" href="juizes.html">Árbritros/Juízes</a></li>
-                            <li><a class="dropdown-item" href="competicoes.html">Competições</a></li>
-                            <li><a class="dropdown-item" href="comites.html">Comitês</a></li>
+                            <li><a class="dropdown-item" href="atletas.html">Athletes</a></li>
+                            <li><a class="dropdown-item" href="treinadores.html">Coaches</a></li>
+                            <li><a class="dropdown-item" href="juizes.html">Referees/Judges</a></li>
+                            <li><a class="dropdown-item" href="competicoes.html">Competitions</a></li>
+                            <li><a class="dropdown-item" href="comites.html">Committees</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Modalidades
+                            Sports
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="modalidades.html">Todas as modalidades</a></li>
-                            <li><a class="dropdown-item" href="#">Atletismo</a></li>
-                            <li><a class="dropdown-item" href="#">Basquetebol</a></li>
-                            <li><a class="dropdown-item" href="#">Canoagem de velocidade</a></li>
-                            <li><a class="dropdown-item" href="#">Ciclismo de pista</a></li>
-                            <li><a class="dropdown-item" href="#">Futebol</a></li>
-                            <li><a class="dropdown-item" href="#">Natação</a></li>
+                            <li><a class="dropdown-item" href="modalidades.html">All sports</a></li>
+                            <li><a class="dropdown-item" href="atletismo.html">Track and Field</a></li>
+                            <li><a class="dropdown-item" href="basquetebol.html">Basketball</a></li>
+                            <li><a class="dropdown-item" href="canoagem.html">Sprint Canoeing</a></li>
+                            <li><a class="dropdown-item" href="ciclismo.html">Track Cycling</a></li>
+                            <li><a class="dropdown-item" href="futebol_html">Football</a></li>
+                            <li><a class="dropdown-item" href="natacao.html">Swimming</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="medalheiro.html">Medalhas</a>
+                        <a class="nav-link" href="medalheiro.html">Medals</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="tocha.html">Percurso da tocha</a>
+                        <a class="nav-link" href="tocha.html">Torch Route</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="estadios.html">Estádios</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="timeline.html">Linha do tempo</a>
+                        <a class="nav-link" href="estadios.html">Stadiums</a>
                     </li>
                 </ul>
+
+                <!-- Search Bar -->
+                <form class="d-flex ms-3 position-relative" onsubmit="handleSearch(event)">
+                    <input class="form-control form-control-sm" type="text" id="mySearch" placeholder="Search..."
+                           title="Type in a category" aria-label="Search">
+                    <ul id="myMenu" class="list-group position-absolute w-100" style="top: 100%; z-index: 1050; display: none;"></ul>
+                </form>
             </div>
         </div>
     </nav>
 
-      
-    <!-- Paginação -->
-    <div class="container my-4">
-        <div class="row mb-3 align-items-center">
-            <div class="col-md-6">
-                <button id="toggleViewBtn" class="btn btn-primary">Switch to Table</button>
-            </div>
-            <div class="col-md-6 text-end">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-end" id="pagination"></ul>
-                </nav>
-            </div>
-        </div>
-    </div>
-        <!-- Atletas -->
-    <div class="row row-cols-1 row-cols-md-4 g-5" id="athlete-container"></div> 
+    <div class="container py-5 mt-4">
+        <!-- Title Section -->
+        <h2 class="text-center mb-4">Athletes</h2>
 
-    <div id="athlete-table" style="display: none;">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Sex</th>
-                    <th>Country</th>
-                    <th>Birth Date</th>
-                </tr>
-            </thead>
-            <tbody id="table-body"></tbody>
-        </table>
-    </div>
-    
-    <div class="modal fade" id="athleteModal" tabindex="-1" aria-labelledby="athleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="athleteModalLabel" data-bind="text: AthleteName"></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <img data-bind="attr: { src: AthletePhoto, alt: AthleteName }" class="img-fluid mb-3">
-                <p><strong>Birth Country:</strong> <span data-bind="text: BirthCountry"></span></p>
-                <p><strong>Birth Date:</strong> <span data-bind="text: BirthDate"></span></p>
-                <p><strong>Birth Place:</strong> <span data-bind="text: BirthPlace"></span></p>
-                <p><strong>Sex:</strong> <span data-bind="text: Sex"></span></p>
-                <p><strong>Height:</strong> <span data-bind="text: Height"></span></p>
-                <p><strong>Weight:</strong> <span data-bind="text: Weight"></span></p>
-                <p><strong>Language:</strong> <span data-bind="text: Language"></span></p>
-                <p><strong>Occupation:</strong> <span data-bind="text: Occupation"></span></p>
-                <p><strong>Education:</strong> <span data-bind="text: Education"></span></p>
-                <p><strong>Nickname:</strong> <span data-bind="text: Nickname"></span></p>
-                <p><strong>Hobbies:</strong> <span data-bind="text: Hobbies"></span></p>
-                <p><strong>Country Code:</strong> <span data-bind="text: CountryCode"></span></p>
-                <p><strong>Residence Place:</strong> <span data-bind="text: ResidencePlace"></span></p>
-                <p><strong>Residence Country:</strong> <span data-bind="text: ResidenceCountry"></span></p>
-                <p><strong>Hero:</strong> <span data-bind="text: Hero"></span></p>
-                <p><strong>Influence:</strong> <span data-bind="text: Influence"></span></p>
-                <p><strong>Philosophy:</strong> <span data-bind="text: Philosophy"></span></p>
-                <p><strong>Sporting Relatives:</strong> <span data-bind="text: SportingRelatives"></span></p>
-                <p><strong>Ritual:</strong> <span data-bind="text: Ritual"></span></p>
-                <p><strong>Other Sports:</strong> <span data-bind="text: OtherSports"></span></p>
-                <p><strong>Country:</strong> <span data-bind="text: Country"></span></p>
-                <h5>Medals:</h5>
-                <ul data-bind="foreach: Medals">
-                    <li data-bind="text: $data"></li>
-                </ul>
-                <h5>Sports:</h5>
-                <ul data-bind="foreach: Sports">
-                    <li data-bind="text: $data"></li>
-                </ul>
-                <h5>Competitions:</h5>
-                <ul data-bind="foreach: Competitions">
-                    <li data-bind="text: $data"></li>
-                </ul>
-            </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <!-- Search Section -->
+        <div class="row justify-content-center mb-4">
+            <div class="col-6">
+                <div class="input-group shadow-sm">
+                    <input type="text" class="form-control rounded-start" id="autocompleteAthletes"
+                           placeholder="Search for an athlete..." aria-describedby="search-button">
+                    <button class="btn text-white rounded-end" type="button" id="search-button"
+                            style="background-color: #0055A4;">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
                 </div>
             </div>
         </div>
-    </div> 
 
-    
+        <!-- Athletes Table -->
+        <main>
+            <table class="table table-striped table-hover">
+                <thead class="table-secondary">
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Nationality</th>
+                        <th scope="col">Sport</th>
+                        <th scope="col">Event</th>
+                        <th scope="col">Details</th>
+                    </tr>
+                </thead>
+                <tbody id="athlete-table-body" data-bind="foreach: athletes">
+                    <tr>
+                        <td class="align-middle" data-bind="text: Name"></td>
+                        <td class="align-middle" data-bind="text: Nationality"></td>
+                        <td class="align-middle" data-bind="text: Sport"></td>
+                        <td class="align-middle" data-bind="text: Event"></td>
+                        <td class="align-middle">
+                            <button class="btn btn-sm btn-outline-secondary" name="details" title="View Details" 
+                                    data-bs-toggle="modal" data-bs-target="#athleteModal" 
+                                    data-bind="click: $parent.showDetails">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+    </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <!-- Athlete Modal -->
+    <div class="modal fade" id="athleteModal" tabindex="-1" aria-labelledby="athleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="athleteModalLabel">Athlete Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <dl class="row">
+                        <dt class="col-sm-4">Name</dt>
+                        <dd class="col-sm-8" id="modalAthleteName"></dd>
+
+                        <dt class="col-sm-4">Nationality</dt>
+                        <dd class="col-sm-8" id="modalAthleteNationality"></dd>
+
+                        <dt class="col-sm-4">Sport</dt>
+                        <dd class="col-sm-8" id="modalAthleteSport"></dd>
+
+                        <dt class="col-sm-4">Event</dt>
+                        <dd class="col-sm-8" id="modalAthleteEvent"></dd>
+
+                        <dt class="col-sm-4">Achievements</dt>
+                        <dd class="col-sm-8" id="modalAthleteAchievements"></dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
-    <script src="atletas.js"></script>
+    <script src="Projeto_script.js"></script>
 </body>
 </html>
