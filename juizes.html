@@ -6,92 +6,88 @@
     <title></title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="stylesheet.css" rel="stylesheet"/>
-    <style>
-        button{
-          display: inline-block;
-          margin-top: 1rem;
-          padding: 0.7rem 1rem;
-          background-color: #4a90e2;
-          background: linear-gradient(
-            180deg,
-            rgb(45, 31, 126) 0%,
-            rgb(170, 109, 82) 100%
-          );
-          color: white;
-          text-decoration: none;
-          border-radius: 4px;
-          text-align: center;
-        }
-    </style>
+    <link href="estilo_projeto.css" rel="stylesheet"/>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html"><img src="https://upload.wikimedia.org/wikipedia/commons/a/af/2024_Summer_Olympics_text_logo.png" height="30px" alt="Paris 2024 Logo"/></a>
+            <!-- Brand Logo -->
+            <a class="navbar-brand" href="index.html">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/2024_Summer_Olympics_text_logo.png"
+                     height="30px" alt="Paris 2024 Logo">
+            </a>
+
+            <!-- Navbar Toggler -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
+            <!-- Navbar Links -->
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Atletas e Equipas
+                            Athletes and Teams
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="atletas.html">Atletas</a></li>
-                            <li><a class="dropdown-item" href="treinadores.html">Treinadores</a></li>
-                            <li><a class="dropdown-item" href="juizes.html">Árbritros/Juízes</a></li>
-                            <li><a class="dropdown-item" href="competicoes.html">Competições</a></li>
-                            <li><a class="dropdown-item" href="comites.html">Comitês</a></li>
+                            <li><a class="dropdown-item" href="atletas.html">Athletes</a></li>
+                            <li><a class="dropdown-item" href="treinadores.html">Coaches</a></li>
+                            <li><a class="dropdown-item" href="juizes.html">Referees/Judges</a></li>
+                            <li><a class="dropdown-item" href="competicoes.html">Competitions</a></li>
+                            <li><a class="dropdown-item" href="comites.html">Committees</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Modalidades
+                            Sports
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="modalidades.html">Todas as modalidades</a></li>
-                            <li><a class="dropdown-item" href="#">Atletismo</a></li>
-                            <li><a class="dropdown-item" href="#">Basquetebol</a></li>
-                            <li><a class="dropdown-item" href="#">Canoagem de velocidade</a></li>
-                            <li><a class="dropdown-item" href="#">Ciclismo de pista</a></li>
-                            <li><a class="dropdown-item" href="#">Futebol</a></li>
-                            <li><a class="dropdown-item" href="#">Natação</a></li>
+                            <li><a class="dropdown-item" href="modalidades.html">All sports</a></li>
+                            <li><a class="dropdown-item" href="atletismo.html">Track and Field</a></li>
+                            <li><a class="dropdown-item" href="basquetebol.html">Basketball</a></li>
+                            <li><a class="dropdown-item" href="canoagem.html">Sprint Canoeing</a></li>
+                            <li><a class="dropdown-item" href="ciclismo.html">Track Cycling</a></li>
+                            <li><a class="dropdown-item" href="futebol_html">Football</a></li>
+                            <li><a class="dropdown-item" href="natacao.html">Swimming</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="medalheiro.html">Medalhas</a>
+                        <a class="nav-link" href="medallheiro.html">Medals</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="tocha.html">Percurso da tocha</a>
+                        <a class="nav-link" href="tocha.html">Torch Route</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="estadios.html">Estádios</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="timeline.html">Linha do tempo</a>
+                        <a class="nav-link" href="estadios.html">Stadiums</a>
                     </li>
                 </ul>
+
+                <!-- Search Bar -->
+                <form class="d-flex ms-3 position-relative" onsubmit="handleSearch(event)">
+                    <input class="form-control form-control-sm" type="text" id="mySearch" placeholder="Search..."
+                           title="Type in a category" aria-label="Search">
+                    <ul id="myMenu" class="list-group position-absolute w-100" style="top: 100%; z-index: 1050; display: none;"></ul>
+                </form>
             </div>
         </div>
     </nav>
+    <br><br>
 
-<!-- Paginação -->
-<div class="container my-4">
-    <div class="row mb-3 align-items-center">
-        <div class="col-md-6">
-            <button id="toggleViewBtn" class="btn btn-primary">Switch to Table</button>
-        </div>
-        <div class="col-md-6 text-end">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-end" id="pagination"></ul>
-            </nav>
+    <!-- Paginação -->
+    <div class="container my-4">
+        <div class="row mb-3 align-items-center">
+            <div class="col-md-6">
+                <button id="toggleViewBtn" class="btn btn-primary">Switch view</button>
+            </div>            
+            <div class="col-md-6 text-end">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-end" id="pagination"></ul>
+                </nav>
+            </div>
         </div>
     </div>
-</div>
-<!-- Juízes -->
+    <!-- Juízes -->
    <div class="row row-cols-1 row-cols-md-4 g-5" id="tech-container"></div> 
 
    <div id="tech-table" style="display: none;">
