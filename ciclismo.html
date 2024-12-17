@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>Eventos de Ciclismo</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="estilo_projeto.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="estilo_projeto.css">
 </head>
+
 <body>
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
         <div class="container-fluid">
             <!-- Brand Logo -->
@@ -72,71 +74,47 @@
             </div>
         </div>
     </nav>
-    <br><br>
 
-    <!-- Paginação -->
-    <div class="container my-4">
-        <div class="row mb-3 align-items-center">
-            <div class="col-md-6">
-                <button id="toggleViewBtn" class="btn btn-primary">Switch view</button>
-            </div>            
-            <div class="col-md-6 text-end">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-end" id="pagination"></ul>
-                </nav>
-            </div>
+    <div class="text-center">
+        <h1>Informações sobre os eventos de Ciclismo</h1>
+    </div>
+
+    <div class="row pt-3 pb-3 align-items-end">
+        <div class="col-3">
+            <select class="form-select" aria-label="Eventos de ciclismo" id="selectEvento" data-bind="foreach: eventos">
+                <option value="" selected>---Selecionar um evento---</option>
+            </select>
+        </div>
+        <div class="col-3">
+            <select class="form-select" aria-label="Fases do evento" id="selectFase">
+                <option value="" selected>---Selecionar uma fase---</option>
+            </select>
         </div>
     </div>
-    
-    <!-- Treinadores -->
-    <div class="row row-cols-1 row-cols-md-4 g-5" id="coach-container"></div> 
 
-    <div id="coach-table" style="display: none;">
+    <main class="container-lg">
         <table class="table table-striped">
-            <thead>
+            <thead class="table-secondary">
                 <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Sex</th>
-                    <th>Function</th>
+                    <th scope="col">Id</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Sexo</th>
+                    <th scope="col">Nome do participante/equipa</th>
+                    <th scope="col">País do participante/equipa</th>
+                    <th scope="col">Código participante/equipa</th>
                 </tr>
             </thead>
-            <tbody id="table-body"></tbody>
+            <tbody id="table-body">
+                <!--preenchido automáticamente-->
+            </tbody>
         </table>
-    </div>
+    </main>
 
-    <div class="modal fade" id="coachModal" tabindex="-1" aria-labelledby="coachModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="coachModalLabel" data-bind="text: coachName"></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <img data-bind="attr: { src: coachPhoto, alt: coachName }" class="img-fluid mb-3">
-                    <p><strong>Birth Date:</strong> <span data-bind="text: BirthDate"></span></p>
-                    <p><strong>Sex:</strong> <span data-bind="text: Sex"></span></p>
-                    <p><strong>Function:</strong> <span data-bind="text: Function"></span></p>
-                    <p><strong>Country Code:</strong> <span data-bind="text: CountryCode"></span></p>
-                    <p><strong>Country:</strong> <span data-bind="text: Country"></span></p>
-                    
-                    <h5>Sports:</h5>
-                    <ul data-bind="foreach: Sports">
-                        <li data-bind="text: $data"></li>
-                    
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div> 
 
-    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
-    <script src="treinadores.js"></script>
+    <script src="ciclismo.js"></script>
 </body>
 </html>
