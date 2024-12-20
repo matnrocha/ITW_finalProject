@@ -1,93 +1,108 @@
-//buscar todos os eventos e colocá-los nos selects
-function populateTable(athletes) {
-    const $tableBody = $('#table-body');
-    $tableBody.empty(); // Limpar a tabela
+// Função para preencher a tabela com os dados dos atletas
+function renderAthleteTable(athletes) {
+    const $tableContainer = $('#table-body');
+    $tableContainer.empty(); // Limpar a tabela
 
     athletes.forEach((athlete) => {
-        const row = `
-                    <tr data-id="${athlete.Id}">
-                        <td class="align-middle">${athlete.Id}</td>
-                        <td class="align-middle">${athlete.ParticipantType}</td>
-                        <td class="align-middle">${athlete.Sex}</td>
-                        <td class="align-middle">${athlete.ParticipantName}</td>
-                        <td class="align-middle">${athlete.CountryName}</td>
-                        <td class="align-middle">${athlete.ParticipantCode}</td>
-                    </tr>
-                `;
-        $tableBody.append(row);
+        const rowTemplate = `
+            <tr data-id="${athlete.Id}">
+                <td class="align-middle">${athlete.Id}</td>
+                <td class="align-middle">${athlete.ParticipantType}</td>
+                <td class="align-middle">${athlete.Sex}</td>
+                <td class="align-middle">${athlete.ParticipantName}</td>
+                <td class="align-middle">${athlete.CountryName}</td>
+                <td class="align-middle">${athlete.ParticipantCode}</td>
+            </tr>
+        `;
+        $tableContainer.append(rowTemplate);
     });
 }
 
-function fetchAthleticsStage(EventId, StageId){
-    console.log('fetchAthleticsStage chamada para a página:', EventId, StageId);
+// Função para buscar os dados da fase e evento
+function fetchStageData(eventId, stageId) {
+    console.log('Buscando dados para o evento:', eventId, 'e fase:', stageId);
 
     $.ajax({
-        url: `http://192.168.160.58/Paris2024/api/Athletics?EventId=${EventId}&StageId=${StageId}`,
+        url: `http://192.168.160.58/Paris2024/api/Athletics?EventId=${eventId}&StageId=${stageId}`,
         method: 'GET',
         dataType: 'json',
-        success: function (data) {
-            populateTable(data);
+        success: function (response) {
+            renderAthleteTable(response);
+        },
+        error: function (error) {
+            console.error('Erro ao buscar dados da fase:', error);
         }
-    })
+    });
 }
 
-$(document).ready(function(){
-    var baseUri = "http://192.168.160.58/Paris2024/api/Athletics/Events"
-    var eventos = {};
-    var selectEvento = document.getElementById("selectEvento");
-    var selectFase = document.getElementById("selectFase");
+$(document).ready(function () {
+    const apiEndpoint = "http://192.168.160.58/Paris2024/api/Athletics/Events";
+    const eventStageMap = {};
+    const eventDropdown = document.getElementById("selectEvento");
+    const stageDropdown = document.getElementById("selectFase");
+
+    // Buscar eventos e preencher o dropdown
     $.ajax({
         type: "GET",
-        url: baseUri,
-        success: function (data) {
-            for(var i=0; i<data.length; i++){
-                eventos[data[i].EventId] = data[i].Stages
-                var newOption = document.createElement('option');
-                newOption.value = data[i].EventId;
-                newOption.innerHTML = data[i].EventName;
-                console.log(newOption);
-                selectEvento.appendChild(newOption);
-            }
-            console.log(eventos)
+        url: apiEndpoint,
+        success: function (events) {
+            events.forEach((event) => {
+                eventStageMap[event.EventId] = event.Stages;
+
+                const eventOption = document.createElement('option');
+                eventOption.value = event.EventId;
+                eventOption.textContent = event.EventName;
+
+                console.log('Adicionando evento:', eventOption);
+                eventDropdown.appendChild(eventOption);
+            });
+
+            console.log('Mapa de eventos e fases carregado:', eventStageMap);
         },
-        complete: function (data) {
-            $('#selectEvento').change(function () {
-                var eventoSelecionado = $("#selectEvento option:selected").val();
-                console.log("evento selecionado", eventoSelecionado)
-                $("#selectFase").empty();
-                if (eventoSelecionado != ""){
-                    var fases = eventos[eventoSelecionado]
-                    for (var i = 0; i < fases.length; i++) {
-                        var newOption = document.createElement('option');
-                        newOption.value = fases[i].StageId;
-                        newOption.innerHTML = fases[i].StageName;
-                        console.log(newOption);
-                        selectFase.appendChild(newOption);
-                    }
-                    fetchAthleticsStage(eventoSelecionado, fases[0].StageId)
-                }
-                else{
-                    var newOption = document.createElement('option');
-                    newOption.value = "";
-                    newOption.innerHTML = "---Seleciona uma fase---";
-                    console.log(newOption);
-                    selectFase.appendChild(newOption);
-                    const $tableBody = $('#table-body');
-                    $tableBody.empty(); // Limpar a tabela
+        complete: function () {
+            // Evento de mudança no dropdown de eventos
+            $('#selectEvento').on('change', function () {
+                const selectedEventId = $(this).val();
+                console.log('Evento selecionado:', selectedEventId);
+
+                $(stageDropdown).empty();
+
+                if (selectedEventId) {
+                    const stages = eventStageMap[selectedEventId];
+                    stages.forEach((stage) => {
+                        const stageOption = document.createElement('option');
+                        stageOption.value = stage.StageId;
+                        stageOption.textContent = stage.StageName;
+
+                        console.log('Adicionando fase:', stageOption);
+                        stageDropdown.appendChild(stageOption);
+                    });
+
+                    // Buscar dados automaticamente para a primeira fase
+                    fetchStageData(selectedEventId, stages[0]?.StageId);
+                } else {
+                    const defaultOption = document.createElement('option');
+                    defaultOption.value = "";
+                    defaultOption.textContent = "---Selecione uma fase---";
+
+                    console.log('Adicionando opção padrão:', defaultOption);
+                    stageDropdown.appendChild(defaultOption);
+
+                    $('#table-body').empty(); // Limpar tabela
                 }
             });
-        }
-    })
+        },
+    });
 
-    $('#selectFase').change(function(){
-        var eventoSelec = $("#selectEvento option:selected").val();
-        var faseSelec = $("#selectFase option:selected").val();
-        console.log("fase e evento: ", faseSelec, eventoSelec)
-        if (eventoSelec != ""){
-            fetchAthleticsStage(eventoSelec, faseSelec);
-        }
-        
-    })
+    // Evento de mudança no dropdown de fases
+    $('#selectFase').on('change', function () {
+        const selectedEventId = $(eventDropdown).val();
+        const selectedStageId = $(this).val();
 
-    
+        console.log('Evento e fase selecionados:', selectedEventId, selectedStageId);
+
+        if (selectedEventId && selectedStageId) {
+            fetchStageData(selectedEventId, selectedStageId);
+        }
+    });
 });

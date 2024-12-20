@@ -1,5 +1,5 @@
-var vm = function () {
-    console.log('ViewModel initiated...');
+// ViewModel for handling data and sorting logic
+function ViewModel() {
     var self = this;
 
     // Base API URI
@@ -8,40 +8,38 @@ var vm = function () {
 
     // Fetch data from the API
     self.activate = function () {
-        console.log('CALL: getRoutes...');
-        ajaxHelper(self.baseUri(), 'GET').done(function (data) {
-            console.log(data);
-            self.records(data); // Populate records
-        });
+        fetchData(self.baseUri())
+            .done(function (data) {
+                self.records(data); // Populate records
+            });
     };
 
-    // Sorting logic
+    // Sorting logic for different medal types
     self.sortBy = function (key) {
-        var sorted = self.records().slice().sort((a, b) => b[key] - a[key]);
+        const sorted = [...self.records()].sort((a, b) => b[key] - a[key]);
         self.records(sorted);
     };
 
-    // Start the ViewModel
+    // Initialize data on ViewModel activation
     self.activate();
-};
+}
 
-// AJAX Helper
-function ajaxHelper(uri, method, data) {
+// AJAX Helper for API calls
+function fetchData(uri) {
     return $.ajax({
-        type: method,
+        type: 'GET',
         url: uri,
         dataType: 'json',
         contentType: 'application/json',
-        data: data ? JSON.stringify(data) : null,
         error: function (jqXHR, textStatus, errorThrown) {
             alert(`AJAX Call [${uri}] Failed`);
         }
     });
 }
 
-$('document').ready(function () {
-    console.log("Ready!");
-    var vmInstance = new vm();
+// Event listener for document ready
+$(function () {
+    var vmInstance = new ViewModel();
     ko.applyBindings(vmInstance);
 
     // Button handlers for sorting

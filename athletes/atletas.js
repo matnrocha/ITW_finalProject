@@ -20,7 +20,7 @@ $(document).ready(function () {
         Nickname: ko.observable(''),
         Hobbies: ko.observable(''),
         CountryCode: ko.observable(''),
-        ResidencePlace: ko.observable(''),
+        Residence: ko.observable(''),
         ResidenceCountry: ko.observable(''),
         Hero: ko.observable(''),
         Influence: ko.observable(''),
@@ -29,9 +29,9 @@ $(document).ready(function () {
         Ritual: ko.observable(''),
         OtherSports: ko.observable(''),
         Country: ko.observable(''),
-        Medals: ko.observable([]),
-        Sports: ko.observable([]),
-        Competitions: ko.observable([])
+        MedalsList: ko.observable([]),
+        SportsList: ko.observable([]),
+        CompetitionsList: ko.observable([])
     };
 
     // Aplicar bindings uma única vez
@@ -202,7 +202,7 @@ $(document).ready(function () {
                 viewModel.Nickname(athlete.Nickname || 'N/A');
                 viewModel.Hobbies(athlete.Hobbies || 'N/A');
                 viewModel.CountryCode(athlete.Country_code || 'N/A');
-                viewModel.ResidencePlace(athlete.Residence_place || 'N/A');
+                viewModel.Residence(athlete.Residence_place || 'N/A');
                 viewModel.ResidenceCountry(athlete.Residence_country || 'N/A');
                 viewModel.Hero(athlete.Hero || 'N/A');
                 viewModel.Influence(athlete.Influence || 'N/A');
@@ -211,10 +211,10 @@ $(document).ready(function () {
                 viewModel.Ritual(athlete.Ritual || 'N/A');
                 viewModel.OtherSports(athlete.OtherSports || 'N/A');
                 viewModel.Country(athlete.Country || 'N/A');
-                viewModel.Medals(athlete.Medals ? athlete.Medals.map(medal =>
+                viewModel.MedalsList(athlete.Medals ? athlete.Medals.map(medal =>
                     `${medal.Medal_Type} - ${medal.Sport_name}, ${medal.Competition_name}, ${medal.Team_name}`) : []);
-                viewModel.Sports(athlete.Sports ? athlete.Sports.map(sport => sport.Name) : ["No sports listed"]);
-                viewModel.Competitions(athlete.Competitions ? athlete.Competitions.map(comp => `${comp.Name} (${comp.Tag})`) : ["No competitions available"]);
+                viewModel.SportsList(athlete.Sports ? athlete.Sports.map(sport => sport.Name) : ["No sports listed"]);
+                viewModel.CompetitionsList(athlete.Competitions ? athlete.Competitions.map(comp => `${comp.Name} (${comp.Tag})`) : ["No competitions available"]);
 
                 // Mostrar o modal
                 $('#athleteModal').modal('show');

@@ -1,41 +1,42 @@
-// ViewModel KnockOut
-var vm = function () {
-    console.log('ViewModel initiated...');
-    //---Variáveis locais
-    var self = this;
-    self.baseUri = ko.observable('http://192.168.160.58/Paris2024/api/Torch_route');
-    self.displayName = 'Paris 2024 Torch Route';
-    self.records = ko.observableArray([]);
+// ViewModel for KnockOut
+class TorchRouteViewModel {
+    constructor() {
+        this.baseUri = ko.observable('http://192.168.160.58/Paris2024/api/Torch_route');
+        this.displayName = 'Paris 2024 Torch Route';
+        this.records = ko.observableArray([]);
+    }
 
-    //--- Page Events
-    self.activate = function (id) {
-        console.log('CALL: getRoutes...');
-        var composedUri = self.baseUri();
-        ajaxHelper(composedUri, 'GET').done(function (data) {
-            //console.log(data);
-            self.records(data);
+    // Activate the view model and fetch data
+    activate() {
+        const composedUri = this.baseUri();
+        this.fetchRoutes(composedUri);
+    }
+
+    // Fetch routes data via AJAX
+    fetchRoutes(uri) {
+        this.ajaxHelper(uri, 'GET').done((data) => {
+            this.records(data);
         });
-    };
+    }
 
-    //--- start ....
-    self.activate(1);
-    console.log("VM initialized!");
-}
-//--- Internal functions
-function ajaxHelper(uri, method, data) {
-    return $.ajax({
-        type: method,
-        url: uri,
-        dataType: 'json',
-        contentType: 'application/json',
-        data: data ? JSON.stringify(data) : null,
-        error: function (jqXHR, textStatus, errorThrown) {
-            alert("AJAX Call[" + uri + "] Fail...");
-        }
-    });
+    // Generic AJAX helper function
+    ajaxHelper(uri, method, data = null) {
+        return $.ajax({
+            type: method,
+            url: uri,
+            dataType: 'json',
+            contentType: 'application/json',
+            data: data ? JSON.stringify(data) : null,
+            error: () => {
+                alert(`AJAX Call to ${uri} failed...`);
+            }
+        });
+    }
 }
 
-$('document').ready(function () {
-    console.log("ready!");
-    ko.applyBindings(new vm());
+// Initialize and apply KnockOut bindings
+$(document).ready(() => {
+    const viewModelInstance = new TorchRouteViewModel();
+    viewModelInstance.activate();  // Start data fetch
+    ko.applyBindings(viewModelInstance);  // Bind the ViewModel to the DOM
 });

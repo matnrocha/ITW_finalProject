@@ -111,5 +111,26 @@ body {
             background-color: #eee;
         }
 
+/* Search input */
+form input {
+    padding-left: 30px;
+}
 
+form input::placeholder {
+    color: #6c757d;
+}
+
+.list-group-item {
+    cursor: pointer;
+}
+
+.sport-info img {
+    margin-top: 15px;
+}
+
+/* Modal */
+.modal-body ul {
+    list-style: none;
+    padding-left: 0;
+}
         

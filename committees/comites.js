@@ -1,127 +1,130 @@
 $(document).ready(function () {
-    console.log('Script carregado e pronto!');
+    console.log('Script inicializado!');
 
-    const $container = $('#committee-container'); // Fixed container ID
-    const $pagination = $('#pagination');
-    const $modal = $('#committeeModal');
-    let committeesList = [];
-    let currentPage = 1;
-    const pageSize = 16;
+    const $committeeContainer = $('#committee-container'); // Container dos comitês
+    const $paginationContainer = $('#pagination'); // Container de paginação
+    const $committeeModal = $('#committeeModal'); // Modal do comitê
+    let committeeList = []; // Lista de comitês
+    let activePage = 1; // Página ativa
+    const itemsPerPage = 16; // Itens por página
 
-    var viewModel = {
+    // ViewModel para exibição no modal
+    const modalViewModel = {
         CommitteeName: ko.observable(''),
         Description: ko.observable(''),
         Chairperson: ko.observable(''),
     };
-    ko.applyBindings(viewModel, document.getElementById('committeeModal'));
+    ko.applyBindings(modalViewModel, document.getElementById('committeeModal'));
 
-    // Function to populate cards
-    function populateCards(committees) {
-        $container.empty(); // Clear the container
-        committees.forEach(committee => {
-            const card = `
+    // Função para exibir os cards dos comitês
+    function displayCommitteeCards(committeeList) {
+        $committeeContainer.empty(); // Limpa o container
+        committeeList.forEach(function (committee) {
+            const cardHtml = `
                 <div class="col">
                     <div class="card committee-card" data-id="${committee.Id}" style="cursor:pointer;">
                         <img src="${committee.Photo || '../images/placeholder.jpg'}" class="card-img-top" alt="${committee.Name}">
                         <div class="card-body">
                             <h5 class="card-title">${committee.Name || 'N/A'}</h5>
                             <p class="card-text">
-                                <strong>Country:</strong> ${committee.Country || 'N/A'}<br>
-                                <strong>Region:</strong> ${committee.Region || 'N/A'}
+                                <strong>País:</strong> ${committee.Country || 'N/A'}<br>
+                                <strong>Região:</strong> ${committee.Region || 'N/A'}
                             </p>
                         </div>
                     </div>
                 </div>
             `;
-            $container.append(card);
+            $committeeContainer.append(cardHtml); // Adiciona o card ao container
         });
     }
 
-    // Fetch committees from API
+    // Função para buscar comitês da API
     function fetchCommittees(page) {
-        console.log('Fetching committees for page:', page);
+        console.log('Carregando comitês para a página:', page);
         $.ajax({
-            url: `http://192.168.160.58/Paris2024/api/NOCs?page=${page}&pagesize=${pageSize}`,
+            url: `http://192.168.160.58/Paris2024/api/NOCs?page=${page}&pagesize=${itemsPerPage}`,
             method: 'GET',
             dataType: 'json',
-            success: function (data) {
-                console.log('API Response:', data);
-                committeesList = data.NOCs || [];
-                const totalPages = data.TotalPages || 1;
+            success: function (response) {
+                console.log('Resposta da API:', response);
+                committeeList = response.NOCs || []; // Atualiza a lista de comitês
+                const totalPageCount = response.TotalPages || 1; // Número total de páginas
 
-                populateCards(committeesList);
-                renderPagination(totalPages, page);
+                displayCommitteeCards(committeeList); // Exibe os cards
+                updatePagination(totalPageCount, page); // Atualiza a paginação
             },
-            error: function (err) {
-                console.error('Error fetching committees:', err);
+            error: function (error) {
+                console.error('Erro ao carregar os comitês:', error);
             }
         });
     }
 
-    // Function to render pagination
-    function renderPagination(totalPages, currentPage) {
-        $pagination.empty();
+    // Função para atualizar os botões de paginação
+    function updatePagination(totalPages, currentPage) {
+        $paginationContainer.empty(); // Limpa a paginação
 
-        // Previous button
+        // Botão anterior
         const prevDisabled = currentPage === 1 ? 'disabled' : '';
-        $pagination.append(`
+        $paginationContainer.append(`
             <li class="page-item ${prevDisabled}">
                 <a class="page-link" href="#" data-page="${currentPage - 1}">&laquo;</a>
             </li>
         `);
 
+        // Botões de páginas
         for (let i = 1; i <= totalPages; i++) {
             const activeClass = i === currentPage ? 'active' : '';
-            $pagination.append(`
+            $paginationContainer.append(`
                 <li class="page-item ${activeClass}">
                     <a class="page-link" href="#" data-page="${i}">${i}</a>
                 </li>
             `);
         }
 
-        // Next button
+        // Botão próximo
         const nextDisabled = currentPage === totalPages ? 'disabled' : '';
-        $pagination.append(`
+        $paginationContainer.append(`
             <li class="page-item ${nextDisabled}">
                 <a class="page-link" href="#" data-page="${currentPage + 1}">&raquo;</a>
             </li>
         `);
 
-        $pagination.find('a').on('click', function (e) {
+        // Evento de clique nos botões de página
+        $paginationContainer.find('a').on('click', function (e) {
             e.preventDefault();
             const page = parseInt($(this).data('page'));
             if (!isNaN(page) && page !== currentPage) {
-                currentPage = page;
-                fetchCommittees(currentPage);
+                activePage = page;
+                fetchCommittees(activePage); // Recarrega os comitês para a nova página
             }
         });
     }
 
-    // Fetch committee details
+    // Função para buscar os detalhes de um comitê
     function fetchCommitteeDetails(id) {
         $.ajax({
             url: `http://192.168.160.58/Paris2024/api/NOCs/${id}`,
             method: 'GET',
             dataType: 'json',
             success: function (committee) {
-                viewModel.CommitteeName(committee.Name || 'N/A');
-                viewModel.Description(committee.Description || 'N/A');
-                viewModel.Chairperson(committee.Chairperson || 'N/A');
+                modalViewModel.CommitteeName(committee.Name || 'N/A');
+                modalViewModel.Description(committee.Description || 'N/A');
+                modalViewModel.Chairperson(committee.Chairperson || 'N/A');
 
-                $('#committeeModal').modal('show');
+                $committeeModal.modal('show'); // Exibe o modal com as informações do comitê
             },
-            error: function (err) {
-                console.error('Error fetching committee details:', err);
+            error: function (error) {
+                console.error('Erro ao carregar os detalhes do comitê:', error);
             }
         });
     }
 
-    // Event to open committee details
+    // Evento para abrir os detalhes de um comitê ao clicar no card
     $(document).on('click', '.committee-card', function () {
         const committeeId = $(this).data('id');
-        fetchCommitteeDetails(committeeId);
+        fetchCommitteeDetails(committeeId); // Carrega os detalhes do comitê
     });
 
-    // Initial fetch
-    fetchCommittees(currentPage);
+    // Carregamento inicial dos comitês
+    fetchCommittees(activePage);
 });

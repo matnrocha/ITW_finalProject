@@ -42,6 +42,12 @@ searchInput.addEventListener('keyup', () => {
     }
 });
 
+function openDetailsModal() {
+    var selectedSport = this;  // 'this' refers to the sport clicked
+    self.selectedSportDetails(selectedSport);  // 'selectedSportDetails' is the observable in your view model
+}
+
+
 // Redirect when pressing enter
 function handleSearch(event) {
     event.preventDefault();

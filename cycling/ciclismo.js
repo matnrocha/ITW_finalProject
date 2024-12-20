@@ -1,85 +1,65 @@
-function populateTable(participants) {
-    const $tableBody = $('#table-body');
-    $tableBody.empty(); // Clear the table
+$(function () {
+    const apiEndpoint = "http://192.168.160.58/Paris2024/api/Cycling_Tracks/Events";
+    const $tbody = $('#table-body');
+    const $eventSelect = $("#selectEvento");
+    const $stageSelect = $("#selectFase");
+    let stagesByEvent = {};
 
-    participants.forEach((participant) => {
-        const row = `
-            <tr data-id="${participant.Id}">
-                <td class="align-middle">${participant.Id}</td>
-                <td class="align-middle">${participant.ParticipantType}</td>
-                <td class="align-middle">${participant.Sex}</td>
-                <td class="align-middle">${participant.ParticipantName}</td>
-                <td class="align-middle">${participant.CountryName}</td>
-                <td class="align-middle">${participant.ParticipantCode}</td>
-            </tr>
-        `;
-        $tableBody.append(row);
-    });
-}
+    const updateTableContent = (items) => {
+        $tbody.empty();
+        items.forEach(({ Id, ParticipantType, Sex, ParticipantName, CountryName, ParticipantCode }) => {
+            $tbody.append(`
+                <tr data-id="${Id}">
+                    <td class="align-middle">${Id}</td>
+                    <td class="align-middle">${ParticipantType}</td>
+                    <td class="align-middle">${Sex}</td>
+                    <td class="align-middle">${ParticipantName}</td>
+                    <td class="align-middle">${CountryName}</td>
+                    <td class="align-middle">${ParticipantCode}</td>
+                </tr>
+            `);
+        });
+    };
 
-function fetchCyclingStage(EventId, StageId) {
-    console.log('fetchCyclingStage chamada para a página:', EventId, StageId);
-
-    $.ajax({
-        url: `http://192.168.160.58/Paris2024/api/Cycling_Tracks?EventId=${EventId}&StageId=${StageId}`,
-        method: 'GET',
-        dataType: 'json',
-        success: function (data) {
-            populateTable(data);
-        }
-    })
-}
-
-$(document).ready(function () {
-    var baseUri = "http://192.168.160.58/Paris2024/api/Cycling_Tracks/Events";
-    var eventos = {};
-    var selectEvento = document.getElementById("selectEvento");
-    var selectFase = document.getElementById("selectFase");
+    const loadCyclingStage = (eventId, stageId) => {
+        console.log(`Fetching cycling stage for EventId: ${eventId}, StageId: ${stageId}`);
+        $.getJSON(`http://192.168.160.58/Paris2024/api/Cycling_Tracks?EventId=${eventId}&StageId=${stageId}`, updateTableContent);
+    };
 
     $.ajax({
         type: "GET",
-        url: baseUri,
-        success: function (data) {
-            for (var i = 0; i < data.length; i++) {
-                eventos[data[i].EventId] = data[i].Stages;
-                var newOption = document.createElement('option');
-                newOption.value = data[i].EventId;
-                newOption.innerHTML = data[i].EventName;
-                selectEvento.appendChild(newOption);
-            }
+        url: apiEndpoint,
+        success: (response) => {
+            response.forEach(({ EventId, EventName, Stages }) => {
+                stagesByEvent[EventId] = Stages;
+                $eventSelect.append(new Option(EventName, EventId));
+            });
         },
-        complete: function () {
-            $('#selectEvento').change(function () {
-                var eventoSelecionado = $("#selectEvento option:selected").val();
-                console.log("evento selecionado", eventoSelecionado);
-                $("#selectFase").empty();
-                if (eventoSelecionado != "") {
-                    var fases = eventos[eventoSelecionado];
-                    for (var i = 0; i < fases.length; i++) {
-                        var newOption = document.createElement('option');
-                        newOption.value = fases[i].StageId;
-                        newOption.innerHTML = fases[i].StageName;
-                        selectFase.appendChild(newOption);
-                    }
-                    fetchCyclingStage(eventoSelecionado, fases[0].StageId);
+        complete: () => {
+            $eventSelect.on('change', () => {
+                const selectedEvent = $eventSelect.val();
+                console.log("Selected event:", selectedEvent);
+                $stageSelect.empty();
+                if (selectedEvent) {
+                    const stages = stagesByEvent[selectedEvent];
+                    stages.forEach(({ StageId, StageName }) => {
+                        $stageSelect.append(new Option(StageName, StageId));
+                    });
+                    loadCyclingStage(selectedEvent, stages[0].StageId);
                 } else {
-                    var newOption = document.createElement('option');
-                    newOption.value = "";
-                    newOption.innerHTML = "---Seleciona uma fase---";
-                    selectFase.appendChild(newOption);
-                    const $tableBody = $('#table-body');
-                    $tableBody.empty(); // Clear the table
+                    $stageSelect.append(new Option("---Seleciona uma fase---", ""));
+                    $tbody.empty();
                 }
             });
         }
     });
 
-    $('#selectFase').change(function () {
-        var eventoSelec = $("#selectEvento option:selected").val();
-        var faseSelec = $("#selectFase option:selected").val();
-        console.log("fase e evento: ", faseSelec, eventoSelec);
-        if (eventoSelec != "") {
-            fetchCyclingStage(eventoSelec, faseSelec);
+    $stageSelect.on('change', () => {
+        const selectedEvent = $eventSelect.val();
+        const selectedStage = $stageSelect.val();
+        console.log("Selected event and stage:", selectedEvent, selectedStage);
+        if (selectedEvent) {
+            loadCyclingStage(selectedEvent, selectedStage);
         }
     });
 });

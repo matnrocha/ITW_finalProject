@@ -1,86 +1,72 @@
-function populateTable(participants) {
-    const $tableBody = $('#table-body');
-    $tableBody.empty(); // Limpar a tabela
+$(document).ready(() => {
+    const apiBase = "http://192.168.160.58/Paris2024/api/Footballs/Events";
+    const $tbBody = $('#table-body');
+    const $eventoSelect = $("#selectEvento");
+    const $faseSelect = $("#selectFase");
+    let stagesByEvent = {};
 
-    participants.forEach((participant) => {
-        const row = `
-            <tr data-id="${participant.Id}">
-                <td class="align-middle">${participant.Id}</td>
-                <td class="align-middle">${participant.ParticipantType}</td>
-                <td class="align-middle">${participant.Sex}</td>
-                <td class="align-middle">${participant.ParticipantName}</td>
-                <td class="align-middle">${participant.CountryName}</td>
-                <td class="align-middle">${participant.ParticipantCode}</td>
-            </tr>
-        `;
-        $tableBody.append(row);
-    });
-}
+    const updateTable = (data) => {
+        $tbBody.empty();
+        data.forEach(({ Id, ParticipantType, Sex, ParticipantName, CountryName, ParticipantCode }) => {
+            const row = `
+                <tr data-id="${Id}">
+                    <td class="align-middle">${Id}</td>
+                    <td class="align-middle">${ParticipantType}</td>
+                    <td class="align-middle">${Sex}</td>
+                    <td class="align-middle">${ParticipantName}</td>
+                    <td class="align-middle">${CountryName}</td>
+                    <td class="align-middle">${ParticipantCode}</td>
+                </tr>
+            `;
+            $tbBody.append(row);
+        });
+    };
 
-function fetchFootballStage(EventId, StageId) {
-    console.log('fetchFootballStage chamada para a página:', EventId, StageId);
+    const loadFootballStage = (eventId, stageId) => {
+        console.log('Loading football stage for EventId:', eventId, 'StageId:', stageId);
+        $.ajax({
+            url: `http://192.168.160.58/Paris2024/api/Footballs?EventId=${eventId}&StageId=${stageId}`,
+            method: 'GET',
+            dataType: 'json',
+            success: updateTable
+        });
+    };
 
-    $.ajax({
-        url: `http://192.168.160.58/Paris2024/api/Footballs?EventId=${EventId}&StageId=${StageId}`,
-        method: 'GET',
-        dataType: 'json',
-        success: function (data) {
-            populateTable(data);
-        }
-    });
-}
-
-$(document).ready(function () {
-    var baseUri = "http://192.168.160.58/Paris2024/api/Footballs/Events";
-    var eventos = {};
-    var selectEvento = document.getElementById("selectEvento");
-    var selectFase = document.getElementById("selectFase");
-    
     $.ajax({
         type: "GET",
-        url: baseUri,
-        success: function (data) {
-            for (var i = 0; i < data.length; i++) {
-                eventos[data[i].EventId] = data[i].Stages;
-                var newOption = document.createElement('option');
-                newOption.value = data[i].EventId;
-                newOption.innerHTML = data[i].EventName;
-                selectEvento.appendChild(newOption);
-            }
-            console.log(eventos);
+        url: apiBase,
+        success: (events) => {
+            events.forEach(({ EventId, EventName, Stages }) => {
+                stagesByEvent[EventId] = Stages;
+                $eventoSelect.append(new Option(EventName, EventId));
+            });
+            console.log(stagesByEvent);
         },
-        complete: function () {
-            $('#selectEvento').change(function () {
-                var eventoSelecionado = $("#selectEvento option:selected").val();
-                console.log("evento selecionado", eventoSelecionado);
-                $("#selectFase").empty();
-                if (eventoSelecionado != "") {
-                    var fases = eventos[eventoSelecionado];
-                    for (var i = 0; i < fases.length; i++) {
-                        var newOption = document.createElement('option');
-                        newOption.value = fases[i].StageId;
-                        newOption.innerHTML = fases[i].StageName;
-                        selectFase.appendChild(newOption);
-                    }
-                    fetchFootballStage(eventoSelecionado, fases[0].StageId);
+        complete: () => {
+            $eventoSelect.on('change', () => {
+                const selectedEvent = $eventoSelect.val();
+                console.log("Selected event:", selectedEvent);
+                $faseSelect.empty();
+                if (selectedEvent) {
+                    const eventStages = stagesByEvent[selectedEvent];
+                    eventStages.forEach(({ StageId, StageName }) => {
+                        $faseSelect.append(new Option(StageName, StageId));
+                    });
+                    loadFootballStage(selectedEvent, eventStages[0].StageId);
                 } else {
-                    var newOption = document.createElement('option');
-                    newOption.value = "";
-                    newOption.innerHTML = "---Seleciona uma fase---";
-                    selectFase.appendChild(newOption);
-                    const $tableBody = $('#table-body');
-                    $tableBody.empty(); // Limpar a tabela
+                    $faseSelect.append(new Option("---Seleciona uma fase---", ""));
+                    $tbBody.empty();
                 }
             });
         }
     });
 
-    $('#selectFase').change(function () {
-        var eventoSelec = $("#selectEvento option:selected").val();
-        var faseSelec = $("#selectFase option:selected").val();
-        console.log("fase e evento: ", faseSelec, eventoSelec);
-        if (eventoSelec != "") {
-            fetchFootballStage(eventoSelec, faseSelec);
+    $faseSelect.on('change', () => {
+        const selectedEvent = $eventoSelect.val();
+        const selectedStage = $faseSelect.val();
+        console.log("Selected phase and event:", selectedStage, selectedEvent);
+        if (selectedEvent) {
+            loadFootballStage(selectedEvent, selectedStage);
         }
     });
 });

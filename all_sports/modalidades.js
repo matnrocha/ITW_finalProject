@@ -10,85 +10,58 @@ function SportsViewModel() {
   self.sportsCache = {}; 
   self.sportDetailsCache = {};
 
-  // lista de esportes
-  self.fetchSports = async function (query = "") {
-      try {
-          let url = 'http://192.168.160.58/Paris2024/api/Sports';
-          if (query) {
-              url += `?q=${encodeURIComponent(query)}`;
-          }
-          const response = await fetch(url);
-          const data = await response.json();
-          
-          // Filtrar com oq tá escrito
-          if (query) {
-              self.sports(data.filter(sport => sport.Name.toLowerCase().includes(query.toLowerCase())));
-          } else {
-              self.sports(data);
-          }
-      } catch (error) {
-          console.error('Error fetching sports:', error);
-      }
+  const fetchData = async (url) => {
+    try {
+      const response = await fetch(url);
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      return null;
+    }
   };
 
-  self.searchSports = async function () {
-      const query = self.searchQuery().trim();
-      if (query === "") {
-          self.fetchSports();
-          return;
-      }
-      else{
-          self.fetchSports(query)
-      }
-  };
+  const isLatestRequest = (requestId) => self.latestRequestId() === requestId;
 
-  self.searchQuery.subscribe(function (newValue) {
-      self.searchSports()
-  });
-
-  // Detalhes com hover
-  self.showSportDetails = async function (sport) {
-    self.selectedSport(sport);
+  self.fetchSports = async (query = "") => {
+    const url = query ? `http://192.168.160.58/Paris2024/api/Sports?q=${encodeURIComponent(query)}` : 'http://192.168.160.58/Paris2024/api/Sports';
+    const data = await fetchData(url);
     
+    if (data) {
+      self.sports(query ? data.filter(sport => sport.Name.toLowerCase().includes(query.toLowerCase())) : data);
+    }
+  };
+
+  self.searchSports = async () => {
+    const query = self.searchQuery().trim();
+    self.fetchSports(query);
+  };
+
+  self.searchQuery.subscribe((newValue) => self.searchSports());
+
+  self.showSportDetails = async (sport) => {
+    self.selectedSport(sport);
+
     const requestId = Date.now();
     self.latestRequestId(requestId); 
 
     if (self.sportDetailsCache[sport.Id]) {
       self.selectedSportDetails(self.sportDetailsCache[sport.Id]);
       return;
-  }
+    }
 
-    // pegar os detalhes da api
-    try {
-      const response = await fetch(`http://192.168.160.58/Paris2024/api/Sports/${sport.Id}`);
-      if (self.latestRequestId() !== requestId) {
-        // verifica se as informções coincidem (sem isso, algumas vezes as informações nn atualizavam)
-        return;
-      }
-      
-      const data = await response.json();
-      self.selectedSportDetails(data);  // esporte com hover
-    } catch (error) {
-      console.error('Error fetching sport details:', error);
+    const data = await fetchData(`http://192.168.160.58/Paris2024/api/Sports/${sport.Id}`);
+    if (isLatestRequest(requestId) && data) {
+      self.selectedSportDetails(data);
     }
   };
 
-  // detalhes no modal
-  self.openSportDetails = async function (sport) {
+  self.openSportDetails = async (sport) => {
     const requestId = Date.now();
     self.latestRequestId(requestId);
 
-    try {
-      const response = await fetch(`http://192.168.160.58/Paris2024/api/Sports/${sport.Id}`);
-      if (self.latestRequestId() !== requestId) {
-        // msm coisa escrita na linha 31
-        return;
-      }
-
-      const data = await response.json();
+    const data = await fetchData(`http://192.168.160.58/Paris2024/api/Sports/${sport.Id}`);
+    if (isLatestRequest(requestId) && data) {
       self.selectedSportDetails(data);
-    } catch (error) {
-      console.error('Error fetching sport details:', error);
     }
   };
 

@@ -1,56 +1,54 @@
-var markers = [];
-var popUps = [];
-var cities = [];
-var markersElems = [];
-console.log("Mapa adicionado")
-var map = L.map('map').setView([43.2961743, 5.3699525], 5);
+var markerList = [];
+var popupContents = [];
+var cityList = [];
+var markerElements = [];
+
+// Initialize the map
+var mapInstance = L.map('map').setView([43.2961743, 5.3699525], 5);
+
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 20,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(map);
-//alterar os popups para ter tudo
-//serach bar pela cidade e meter popup vermelho com autocomplete1
+}).addTo(mapInstance);
+
+// Fetch data via AJAX
 $.ajax({
     type: "GET",
     url: "http://192.168.160.58/Paris2024/api/Torch_route",
-    success: function (data){
-        console.log(data);
-        for(var i = 0; i < data.length; i++){
-            //console.log("cycle")
-            //console.log(data[i])
-            //console.log([parseFloat(data[i].Lat), parseFloat(data[i].Lon)]);
-            if (data[i].Tag != "relay-in-greece"){
-                console.log("added")
-                var popupInfo = `Stage:${data[i].Stage_number}</br>Title:${data[i].Title}</br>City:${data[i].City}`;
-                markers.push([parseFloat(data[i].Lat), parseFloat(data[i].Lon)]);
-                cities.push(data[i].City);
-                popUps.push(popupInfo);
-                var marker = L.marker([parseFloat(data[i].Lat), parseFloat(data[i].Lon)]).addTo(map).bindPopup(popupInfo);
-                markersElems.push(marker);
-            };
-        }
+    success: function (data) {
+        data.forEach(item => {
+            if (item.Tag != "relay-in-greece") {
+                var popupInfo = `Stage:${item.Stage_number}</br>Title:${item.Title}</br>City:${item.City}`;
+                markerList.push([parseFloat(item.Lat), parseFloat(item.Lon)]);
+                cityList.push(item.City);
+                popupContents.push(popupInfo);
+
+                var newMarker = L.marker([parseFloat(item.Lat), parseFloat(item.Lon)])
+                    .addTo(mapInstance)
+                    .bindPopup(popupInfo);
+
+                markerElements.push(newMarker);
+            }
+        });
     },
-    complete: function(){
-        console.log(markers);
-        var polyline = L.polyline(markers, {color: 'green'}).addTo(map);
-        map.fitBounds(polyline.getBounds());
+    complete: function () {
+        var routePolyline = L.polyline(markerList, { color: 'green' }).addTo(mapInstance);
+        mapInstance.fitBounds(routePolyline.getBounds());
+
         $("#autocomplete").autocomplete({
-            source: cities
+            source: cityList
         });
     }
 });
-$("#button-addon1").click(function(){
-    console.log("botão carregado")
-    var city = $("#autocomplete").val();
-    console.log(city);
-    console.log(cities);
-    if (cities.includes(city)){
-        console.log("cidade encontrada")
-        var coords = cities.indexOf(city);
-        map.setView(markers[coords], 15);
-        markersElems[coords].openPopup();
-    }
-    else{
+
+// Search button functionality
+$("#button-addon1").click(function () {
+    var selectedCity = $("#autocomplete").val();
+    if (cityList.includes(selectedCity)) {
+        var cityIndex = cityList.indexOf(selectedCity);
+        mapInstance.setView(markerList[cityIndex], 15);
+        markerElements[cityIndex].openPopup();
+    } else {
         alert("City does not belong to the torch route");
-    };
-})
+    }
+});

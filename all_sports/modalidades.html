@@ -86,7 +86,7 @@
     
       <div class="row">
         <!-- lista com os esportes -->
-        <div class="col-md-4 sport-list">
+        <div class="col-md-8 sport-list">
           <h3>Sports</h3>
           <ul class="list-group" data-bind="foreach: sports">
             <li class="list-group-item sport-list-item" data-bind="text: Name, event: { mouseover: $parent.showSportDetails, click: $parent.openSportDetails }"></li>
@@ -94,7 +94,7 @@
         </div>
     
         <!-- container com as informações-->
-        <div class="col-md-8">
+        <div class="col-md-4">
           <div class="sport-info" id="sport-info" data-bind="visible: selectedSport">
             <h3 data-bind="text: selectedSport() ? selectedSport().Name : 'Hover over a sport to see details'"></h3>
             <p data-bind="text: 'Athletes: ' + (selectedSport() ? selectedSport().Athletes : '')"></p>

@@ -5,7 +5,7 @@ $(document).ready(function () {
     const $pagination = $('#pagination');
     const $modal = $('#techModal');
     var techsList = []
-     
+
     var viewModel = {
         techPhoto: ko.observable(''),
         techName: ko.observable(''),
@@ -25,7 +25,6 @@ $(document).ready(function () {
     const pageSize = 16;
 
     function populateCards(techs){
-        // Limpar e preencher os cards
         $container.empty();
         techs.forEach(tech => {
             const card = `
@@ -43,19 +42,19 @@ $(document).ready(function () {
 
     function populateTable(techs){
         const $tableBody = $('#table-body');
-        $tableBody.empty(); // Limpar a tabela
+        $tableBody.empty();
 
-            techs.forEach((tech, index) => {
-                const row = `
-                    <tr data-id="${tech.Id}" style="cursor:pointer;">
-                        <td>${index + 1}</td>
-                        <td>${tech.Name}</td>
-                        <td>${tech.Sex}</td>
-                        <td>${tech.BirthDate || 'N/A'}</td>
-                    </tr>
-                `;
-                $tableBody.append(row);
-            })
+        techs.forEach((tech, index) => {
+            const row = `
+                <tr data-id="${tech.Id}" style="cursor:pointer;">
+                    <td>${index + 1}</td>
+                    <td>${tech.Name}</td>
+                    <td>${tech.Sex}</td>
+                    <td>${tech.BirthDate || 'N/A'}</td>
+                </tr>
+            `;
+            $tableBody.append(row);
+        })
     }
 
     function fetchTechs(page) {
@@ -71,7 +70,6 @@ $(document).ready(function () {
                 const totalPages = data.TotalPages;
                 techsList = techs
 
-                // Atualizar a paginação
                 renderPagination(totalPages, page);
 
                 if (isTableView){
@@ -87,7 +85,6 @@ $(document).ready(function () {
         });
     }
 
-    // Renderizar a paginação
     function renderPagination(totalPages, currentPage) {
         console.log('renderPagination chamada. Total de páginas:', totalPages, 'Página atual:', currentPage);
         $pagination.empty(); 
@@ -96,7 +93,6 @@ $(document).ready(function () {
         const startPage = Math.max(1, currentPage - Math.floor(windowSize / 2));
         const endPage = Math.min(totalPages, startPage + windowSize - 1);
 
-        // Botão para ir à primeira página, se não estiver visível
         if (startPage > 1) {
             $pagination.append(`
                 <li class="page-item">
@@ -105,7 +101,6 @@ $(document).ready(function () {
             `);
         }
 
-        // Botão de voltar
         const prevDisabled = currentPage === 1 ? 'disabled' : '';
         $pagination.append(`
             <li class="page-item ${prevDisabled}">
@@ -115,7 +110,6 @@ $(document).ready(function () {
             </li>
         `);
 
-        // Números das páginas
         for (let i = startPage; i <= endPage; i++) {
             const activeClass = i === currentPage ? 'active' : '';
             $pagination.append(`
@@ -125,7 +119,6 @@ $(document).ready(function () {
             `);
         }
 
-        // Botão de próximo
         const nextDisabled = currentPage === totalPages ? 'disabled' : '';
         $pagination.append(`
             <li class="page-item ${nextDisabled}">
@@ -135,7 +128,6 @@ $(document).ready(function () {
             </li>
         `);
 
-        // Botão para ir à última página, se não estiver visível
         if (endPage < totalPages) {
             $pagination.append(`
                 <li class="page-item">
@@ -144,7 +136,6 @@ $(document).ready(function () {
             `);
         }
 
-        // Clicar nos botões de paginação
         $pagination.find('a').on('click', function (e) {
             e.preventDefault();
             const page = parseInt($(this).data('page'));
@@ -153,7 +144,7 @@ $(document).ready(function () {
                 if (isTableView) {
                     populateTable(techsList);
                 }
-                fetchTechs(currentPage); // Atualiza os atletas
+                fetchTechs(currentPage);
             }
         });
     }
@@ -179,17 +170,15 @@ $(document).ready(function () {
 
                 console.log('model data', viewModel);
 
-            // Show the modal using Bootstrap's modal method
-            $('#techModal').modal('show');
+                $('#techModal').modal('show');
             },
-
             error: function (err) {
                 console.error('Erro ao buscar detalhes do atleta:', err);
             }
-    });
+        });
     }
 
-    let isTableView = false; // card or tabela
+    let isTableView = false;
     $('#toggleViewBtn').on('click', function () {
         const $cards = $('#tech-container');
         const $table = $('#tech-table');
@@ -204,14 +193,13 @@ $(document).ready(function () {
             $cards.hide();
             $table.show();
             $button.text('Switch view');
-            populateTable(techsList); // Populate table literalmente
+            populateTable(techsList);
         }
         isTableView = !isTableView;
     });
     
     fetchTechs(currentPage);
 
-    // abrir os detalhes do atleta
     $(document).on('click', '.tech-card', function () {
         const techId = $(this).data('id');
         fetchTechDetails(techId);

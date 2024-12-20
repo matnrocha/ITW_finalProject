@@ -1,5 +1,4 @@
 $(document).ready(function () {
-    console.log('Script carregado e pronto!');
 
     const $container = $('#coach-container');
     const $pagination = $('#pagination');
@@ -64,14 +63,12 @@ $(document).ready(function () {
     }
 
     function fetchCoachs(page) {
-        console.log('fetchCoachs chamada para a página:', page);
 
         $.ajax({
             url: `http://192.168.160.58/Paris2024/api/Coaches?page=${page}&pageSize=${pageSize}`,
             method: 'GET',
             dataType: 'json',
             success: function (data) {
-                console.log('Dados da API:', data); 
                 const coaches = data.Coaches;
                 const totalPages = data.TotalPages;
                 coachesList = coaches
@@ -87,21 +84,17 @@ $(document).ready(function () {
                 }
             },
             error: function (err) {
-                console.error('Erro ao buscar treinadores:', err);
             }
         });
     }
 
-    // Renderizar a paginação
     function renderPagination(totalPages, currentPage) {
-        console.log('renderPagination chamada. Total de páginas:', totalPages, 'Página atual:', currentPage);
         $pagination.empty(); 
         
         const windowSize = 9;
         const startPage = Math.max(1, currentPage - Math.floor(windowSize / 2));
         const endPage = Math.min(totalPages, startPage + windowSize - 1);
 
-        // Botão para ir à primeira página, se não estiver visível
         if (startPage > 1) {
             $pagination.append(`
                 <li class="page-item">
@@ -110,7 +103,6 @@ $(document).ready(function () {
             `);
         }
 
-        // Botão de voltar
         const prevDisabled = currentPage === 1 ? 'disabled' : '';
         $pagination.append(`
             <li class="page-item ${prevDisabled}">
@@ -120,7 +112,6 @@ $(document).ready(function () {
             </li>
         `);
 
-        // Números das páginas
         for (let i = startPage; i <= endPage; i++) {
             const activeClass = i === currentPage ? 'active' : '';
             $pagination.append(`
@@ -130,7 +121,6 @@ $(document).ready(function () {
             `);
         }
 
-        // Botão de próximo
         const nextDisabled = currentPage === totalPages ? 'disabled' : '';
         $pagination.append(`
             <li class="page-item ${nextDisabled}">
@@ -140,7 +130,6 @@ $(document).ready(function () {
             </li>
         `);
 
-        // Botão para ir à última página, se não estiver visível
         if (endPage < totalPages) {
             $pagination.append(`
                 <li class="page-item">
@@ -149,7 +138,6 @@ $(document).ready(function () {
             `);
         }
 
-        // Clicar nos botões de paginação
         $pagination.find('a').on('click', function (e) {
             e.preventDefault();
             const page = parseInt($(this).data('page'));
@@ -158,7 +146,7 @@ $(document).ready(function () {
                 if (isTableView) {
                     populateTable(coachesList);
                 }
-                fetchCoachs(currentPage); // Atualiza os atletas
+                fetchCoachs(currentPage); 
             }
         });
     }
@@ -170,7 +158,6 @@ $(document).ready(function () {
             method: 'GET',
             dataType: 'json',
             success: function (coach) {
-                console.log(viewModel)
 
                 viewModel.coachPhoto(coach.Photo || '../images/placeholder.jpg');
                 viewModel.coachName(coach.Name || 'N/A');
@@ -180,21 +167,17 @@ $(document).ready(function () {
                 viewModel.Country(coach.Country || 'N/A');
                 viewModel.CountryCode(coach.Country_code || 'N/A');
                 viewModel.Sports(coach.Sports ? coach.Sports.map(sport => sport.Name) : ["No sports listed"]);
-                
 
-                console.log('model data', viewModel);
-
-            // Show the modal using Bootstrap's modal method
             $('#coachModal').modal('show');
             },
 
             error: function (err) {
-                console.error('Erro ao buscar detalhes do atleta:', err);
+                console.error(err);
             }
     });
     }
     
-    let isTableView = false; // card or tabela
+    let isTableView = false; 
     $('#toggleViewBtn').on('click', function () {
         const $cards = $('#coach-container');
         const $table = $('#coach-table');
@@ -209,14 +192,13 @@ $(document).ready(function () {
             $cards.hide();
             $table.show();
             $button.text('Switch view');
-            populateTable(coachesList); // Populate table literalmente
+            populateTable(coachesList); 
         }
         isTableView = !isTableView;
     });
 
     fetchCoachs(currentPage);
 
-    // detalhes
     $(document).on('click', '.coach-card', function () {
         const coachId = $(this).data('id');
         fetchCoachDetails(coachId);

@@ -1,10 +1,11 @@
+// Function to populate the table with athlete data
 function populateTable(athletes) {
     const $tableBody = $('#table-body');
-    $tableBody.empty(); // Limpar a tabela
+    $tableBody.empty(); // Clear the table
 
-    athletes.forEach((athlete) => {
-        const row = 
-            `<tr data-id="${athlete.Id}">
+    athletes.forEach(athlete => {
+        const row = `
+            <tr data-id="${athlete.Id}">
                 <td class="align-middle">${athlete.Id}</td>
                 <td class="align-middle">${athlete.ParticipantType}</td>
                 <td class="align-middle">${athlete.Sex}</td>
@@ -16,67 +17,69 @@ function populateTable(athletes) {
     });
 }
 
-function fetchSwimmingStage(EventId, StageId) {
-    console.log('fetchSwimmingStage chamada para a página:', EventId, StageId);
-
+// Fetch data for the selected swimming stage and populate the table
+function fetchSwimmingStage(eventId, stageId) {
     $.ajax({
-        url: `http://192.168.160.58/Paris2024/api/Swimmings?EventId=${EventId}&StageId=${StageId}`,
+        url: `http://192.168.160.58/Paris2024/api/Swimmings?EventId=${eventId}&StageId=${stageId}`,
         method: 'GET',
         dataType: 'json',
-        success: function (data) {
-            populateTable(data);
+        success: populateTable,
+        error: () => alert('Failed to fetch swimming stage data')
+    });
+}
+
+// Populate event and stage options dynamically
+function populateEventAndStageOptions(data) {
+    const selectEvento = $("#selectEvento");
+    const selectFase = $("#selectFase");
+    const eventos = {};
+
+    data.forEach(event => {
+        eventos[event.EventId] = event.Stages;
+        const option = new Option(event.EventName, event.EventId);
+        selectEvento.append(option);
+    });
+
+    selectEvento.change(function () {
+        const selectedEventId = selectEvento.val();
+        selectFase.empty();
+
+        if (selectedEventId) {
+            const stages = eventos[selectedEventId];
+            stages.forEach(stage => {
+                const option = new Option(stage.StageName, stage.StageId);
+                selectFase.append(option);
+            });
+
+            fetchSwimmingStage(selectedEventId, stages[0].StageId);
+        } else {
+            const placeholder = new Option('---Select a stage---', '');
+            selectFase.append(placeholder);
+            $('#table-body').empty(); // Clear the table
         }
     });
 }
 
-$(document).ready(function () {
-    var baseUri = "http://192.168.160.58/Paris2024/api/Swimmings/Events";
-    var eventos = {};
-    var selectEvento = document.getElementById("selectEvento");
-    var selectFase = document.getElementById("selectFase");
-
-    $.ajax({
-        type: "GET",
-        url: baseUri,
-        success: function (data) {
-            for (var i = 0; i < data.length; i++) {
-                eventos[data[i].EventId] = data[i].Stages;
-                var newOption = document.createElement('option');
-                newOption.value = data[i].EventId;
-                newOption.innerHTML = data[i].EventName;
-                selectEvento.appendChild(newOption);
-            }
-        },
-        complete: function (data) {
-            $('#selectEvento').change(function () {
-                var eventoSelecionado = $("#selectEvento option:selected").val();
-                $("#selectFase").empty();
-                if (eventoSelecionado != "") {
-                    var fases = eventos[eventoSelecionado];
-                    for (var i = 0; i < fases.length; i++) {
-                        var newOption = document.createElement('option');
-                        newOption.value = fases[i].StageId;
-                        newOption.innerHTML = fases[i].StageName;
-                        selectFase.appendChild(newOption);
-                    }
-                    fetchSwimmingStage(eventoSelecionado, fases[0].StageId);
-                } else {
-                    var newOption = document.createElement('option');
-                    newOption.value = "";
-                    newOption.innerHTML = "---Selecionar uma fase---";
-                    selectFase.appendChild(newOption);
-                    const $tableBody = $('#table-body');
-                    $tableBody.empty(); // Limpar a tabela
-                }
-            });
-        }
-    });
-
+// Event listener for when the stage is changed
+function onStageChange() {
     $('#selectFase').change(function () {
-        var eventoSelec = $("#selectEvento option:selected").val();
-        var faseSelec = $("#selectFase option:selected").val();
-        if (eventoSelec != "") {
-            fetchSwimmingStage(eventoSelec, faseSelec);
+        const selectedEventId = $("#selectEvento").val();
+        const selectedStageId = $(this).val();
+
+        if (selectedEventId && selectedStageId) {
+            fetchSwimmingStage(selectedEventId, selectedStageId);
         }
     });
+}
+
+// Initialize the application
+$(document).ready(function () {
+    const baseUri = "http://192.168.160.58/Paris2024/api/Swimmings/Events";
+
+    // Fetch events and initialize the select options
+    $.get(baseUri, function (data) {
+        populateEventAndStageOptions(data);
+    });
+
+    onStageChange(); // Set up the event listener for stage change
 });
