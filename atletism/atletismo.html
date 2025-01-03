@@ -64,6 +64,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="../stadiums/estadios.html">Stadiums</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../favorites/favoritos.html">Favorites</a>
+                    </li>
                 </ul>
 
                 <!-- Search Bar -->
@@ -77,20 +80,22 @@
     </nav>
     <div class="text-center"><h1>Information about Track and Field Events</h1></div>
 
-    <div class="row pt-3 pb-3 align-items-end">
-        <div class="col-3">
-            <select class="form-select" aria-label="Track and Field Events" id="selectEvento" data-bind="foreach: eventos">
-                <option value="" selected>event section</option>
-            </select>
-        </div>
-        <div class="col-3">
-            <select class="form-select" aria-label="Event Stages" id="selectFase">
-                <option value="" selected>stage section</option>
-            </select>
-        </div>
-    </div>
+    
 
     <main class="container-lg">
+        <div class="row pt-3 pb-3 align-items-end">
+            <div class="col-3">
+                <select class="form-select" aria-label="Track and Field Events" id="selectEvento" data-bind="foreach: eventos">
+                    <option value="" selected>event section</option>
+                </select>
+            </div>
+            <div class="col-9">
+                <select class="form-select" aria-label="Event Stages" id="selectFase">
+                    <option value="" selected>stage section</option>
+                </select>
+            </div>
+        </div>
+
         <table class="table table-striped">
             <thead class="table-secondary">
                 <tr>

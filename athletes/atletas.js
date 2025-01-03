@@ -31,7 +31,8 @@ $(document).ready(function () {
         Country: ko.observable(''),
         MedalsList: ko.observable([]),
         SportsList: ko.observable([]),
-        CompetitionsList: ko.observable([])
+        CompetitionsList: ko.observable([]),
+        Favorite: ko.observable(false) 
     };
 
     // Aplicar bindings uma única vez
@@ -58,25 +59,71 @@ $(document).ready(function () {
             });
     }
 
-    function populateCards(athletes){
+    function populateCards(athletes) {
+        const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        
         $container.empty();
         athletes.forEach(athlete => {
+            const isFavorite = favorites.some(fav => fav.Id === athlete.Id); // Verificar se o atleta é favorito
             const card = `
                 <div class="col">
-                    <div class="card athlete-card" data-id="${athlete.Id}" style="cursor:pointer;">
-                        <img src="${athlete.Photo || '../images/placeholder.jpg'}" class="card-img-top" alt="${athlete.Name}">
+                    <div class="card athlete-card" data-id="${athlete.Id}">
+                        <img src="${athlete.Photo}" class="card-img-top" alt="${athlete.Name}">
                         <div class="card-body">
                             <h5 class="card-title">${athlete.Name}</h5>
-                            <p class="card-text">
-                                <strong>Country:</strong> ${athlete.BirthCountry || 'N/A'}
-                            </p>
+                            <p class="card-text">${athlete.BirthCountry || 'N/A'}</p>
+                            <button class="btn favorite-btn" data-id="${athlete.Id}">
+                                <i class="fa ${isFavorite ? 'fa-heart' : 'fa-heart-o'}" aria-hidden="true"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
             `;
-            $container.append(card)
-        })
+            $container.append(card);
+        });
     }
+    
+    
+    
+
+    $(document).on('click', '.favorite-btn', function () {
+        const athleteId = $(this).data('id');
+        const $icon = $(this).find('i');
+        
+        // Recupera favoritos do Local Storage
+        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    
+        // Verifica se o atleta já está nos favoritos
+        const existingAthlete = favorites.find(fav => fav.Id === athleteId);
+        
+        if (existingAthlete) {
+            // Remove o atleta dos favoritos
+            favorites = favorites.filter(fav => fav.Id !== athleteId);
+            $icon.removeClass('fa-heart').addClass('fa-heart-o'); // Ícone vazio
+        } else {
+            // Busca detalhes do atleta
+            const athlete = athletesList.find(a => a.Id === athleteId);
+            if (athlete) {
+                // Adiciona o atleta aos favoritos (apenas os campos especificados)
+                favorites.push({
+                    Id: athlete.Id,
+                    AthletePhoto: athlete.Photo || '',
+                    AthleteName: athlete.Name || '',
+                    BirthCountry: athlete.BirthCountry || 'N/A',
+                    BirthPlace: athlete.BirthPlace || 'N/A',
+                    BirthDate: athlete.BirthDate || 'N/A'
+                });
+                $icon.removeClass('fa-heart-o').addClass('fa-heart'); // Ícone preenchido
+            }
+        }
+    
+        // Atualiza o Local Storage
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+    });
+    
+    
+    
+
     
     function fetchAthletes(page) {
         console.log('fetchAthletes chamada para a página:', page);

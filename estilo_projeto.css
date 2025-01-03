@@ -133,4 +133,21 @@ form input::placeholder {
     list-style: none;
     padding-left: 0;
 }
+
+.favorite-btn {
+    border: none;
+    background: none;
+    color: #dc3545; /* Vermelho */
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.favorite-btn .fa-heart-o {
+    color: gray;
+}
+
+.favorite-btn .fa-heart {
+    color: #dc3545;
+}
+
         

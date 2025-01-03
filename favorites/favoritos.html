@@ -1,16 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Canoe Sprints</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css"
-        rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="../estilo_projeto.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Favorited Athletes</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../estilo_projeto.css" rel="stylesheet"/>
 </head>
-
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
@@ -80,51 +76,71 @@
         </div>
     </nav>
 
-    <div class="text-center">
-        <h1>Information on Sprint Canoeing Events</h1>
-    </div>
-
-    
-
-    <main class="container-lg">
-        <div class="row pt-3 pb-3 align-items-end">
-            <div class="col-3">
-                <select class="form-select" aria-label="Track and Field Events" id="selectEvento" data-bind="foreach: eventos">
-                    <option value="" selected>event section</option>
-                </select>
-            </div>
-            <div class="col-9">
-                <select class="form-select" aria-label="Event Stages" id="selectFase">
-                    <option value="" selected>stage section</option>
-                </select>
+    <!-- Paginação -->
+    <div class="container my-4">
+        <div class="row mb-3 align-items-center">
+            <div class="col-md-6 text-end">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-end" id="pagination"></ul>
+                </nav>
             </div>
         </div>
-
-        
+    </div>
+    <!-- Favorited Athletes Table -->
+    <div class="container mt-4">
+        <h2>Favorited Athletes</h2>
         <table class="table table-striped">
-            <thead class="table-secondary">
+            <thead>
                 <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Gender</th>
-                    <th scope="col">Participant/Team Name</th>
-                    <th scope="col">Participant/Team Country</th>
-                    <th scope="col">Participant/Team Code</th>
+                    <th>#</th>
+                    <th>Photo</th>
+                    <th>Name</th>
+                    <th>Country</th>
+                    <th>Birth Place</th>
+                    <th>Birth Date</th>
                 </tr>
             </thead>
-            <tbody id="table-body">
-                <!--Automatically filled-->
+            <tbody id="favorited-athletes-body">
+                <!-- Rows will be dynamically added here -->
             </tbody>
         </table>
-    </main>
+    </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Recuperando dados do localStorage
+            const favoritedAthletes = JSON.parse(localStorage.getItem('favorites')) || [];
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
-    <script src="canoagem.js"></script>
-    <script src="../Projeto_script.js"></script>
+            if (favoritedAthletes.length === 0) {
+                $('#favorited-athletes-body').append(`
+                    <tr class="table-warning">
+                        <td colspan="7">No favorited athletes found.</td>
+                    </tr>
+                `);
+                return;
+            }
+
+            // Populando a tabela com os dados
+            favoritedAthletes.forEach((athlete, index) => {
+                const birthDate = athlete.BirthDate ? new Date(athlete.BirthDate).toLocaleDateString() : 'N/A';
+                $('#favorited-athletes-body').append(`
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td><img src="${athlete.AthletePhoto}" alt="Athlete Photo" style="width: 50px; height: auto;"></td>
+                        <td>${athlete.AthleteName || 'N/A'}</td>
+                        <td>${athlete.BirthCountry || 'N/A'}</td>
+                        <td>${athlete.BirthPlace || 'N/A'}</td>
+                        <td>${birthDate}</td>
+                    </tr>
+                `);
+            });
+        });
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.8/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.min.js"></script>
+
 </body>
-
 </html>
